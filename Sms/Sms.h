@@ -1,46 +1,42 @@
 /**
  * Arduino - Gsm driver
  * 
- * Gprs.h
+ * Sms.h
  * 
-* GPRS connection using.
+ * Interface to calls.
  * 
  * @author Dalmir da Silva <dalmirdasilva@gmail.com>
  */
 
-#ifndef __ARDUINO_DRIVER_GSM_GPRS_H__
-#define __ARDUINO_DRIVER_GSM_GPRS_H__ 1
+#ifndef __ARDUINO_DRIVER_GSM_SMS_H__
+#define __ARDUINO_DRIVER_GSM_SMS_H__ 1
 
-class Gprs {
+class Sms {
     
 public:
 
     /**
-     * Start Up Multi-IP Connection 
+     * Delete SMS Message
      * 
-     * Enable or disable multi IP connection.
      * 
-     * @param use           0 disables multi IP connection and 1 enables.
-     * @return
+     * @param index             Message location.
+     * @param flags             Deletion flags.
+     * @return 
      */
-    virtual unsigned char useMultiplexer(bool use) = 0;
+    virtual unsigned char remove(unsigned char index, unsigned char flags) = 0;
 
     /**
-     * Start Task and Set APN, LOGIN, PASSWORD
+     * Select SMS Message Format
      * 
-     * Each parameter must be \0 teminated.
-     * 
-     * @param apn           The apn access point name.
-     * @param login         The GPRS user name.
-     * @param password      The GPRS password.
-     * @return
+     * @param format            Message format.
+     * @return 
      */
-    virtual unsigned char startTask(unsigned char *apn, unsigned char *login, unsigned char *password) = 0;
+    virtual unsigned char format(bool format) = 0;
 
     /**
-     * Bring Up Wireless Connection with GPRS or CSD
+     * Bring Up Wireless Connection with Sms or CSD
      * 
-     * Connects to the GPRS network.
+     * Connects to the Sms network.
      * 
      * @return 
      */
@@ -49,7 +45,7 @@ public:
     /**
      * Get Local IP Address
      * 
-     * Returns the the IP address assigned from GPRS or CSD in 4
+     * Returns the the IP address assigned from Sms or CSD in 4
      * bytes format.
      * 
      * @param entry         Phonebook entry.
@@ -104,7 +100,7 @@ public:
      * 
      * @return 
      */
-    virtual unsigned char send(unsigned char *buf, unsigned int len) = 0;
+    virtual unsigned char send(unsigned char *buf) = 0;
 
     /**
      * Send Data Through TCP or UDP Connection
@@ -121,11 +117,11 @@ public:
     virtual unsigned char setUpServer(unsigned char mode, unsigned int port) = 0;
 
     /**
-     * Deactivate GPRS PDP Context
+     * Deactivate Sms PDP Context
      * 
      * @return 
      */
     virtual unsigned char shutdown() = 0;
 };
 
-#endif /* __ARDUINO_DRIVER_GSM_GPRS_H__ */
+#endif /* __ARDUINO_DRIVER_GSM_SMS_H__ */

@@ -14,6 +14,14 @@
         <in>CallSIM900.cpp</in>
         <in>CallSIM900.h</in>
       </df>
+      <df name="Gprs">
+        <in>Gprs.cpp</in>
+        <in>Gprs.h</in>
+      </df>
+      <df name="GprsSIM900">
+        <in>GprsSIM900.cpp</in>
+        <in>GprsSIM900.h</in>
+      </df>
       <df name="SIM900">
         <df name="datasheet">
         </df>
@@ -23,6 +31,10 @@
         <in>SIM900.h</in>
       </df>
       <df name="Sms">
+        <df name="datasheet">
+        </df>
+        <in>Sms.cpp</in>
+        <in>Sms.h</in>
       </df>
       <df name="SmsSIM900">
         <df name="datasheet">
@@ -57,8 +69,28 @@
           <buildCommand>${MAKE} -f Makefile</buildCommand>
           <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
           <executablePath></executablePath>
+          <ccTool>
+            <incDir>
+              <pElem>/usr/share/arduino/libraries/SoftwareSerial</pElem>
+              <pElem>/usr/share/arduino/hardware/arduino/cores/arduino</pElem>
+            </incDir>
+          </ccTool>
         </makeTool>
       </makefileType>
+      <folder path="gsm/GprsSIM900">
+        <ccTool>
+          <incDir>
+            <pElem>Gprs</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="gsm/SIM900">
+        <ccTool>
+          <incDir>
+            <pElem>/usr/share/arduino/libraries/SoftwareSerial</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
     </conf>
   </confs>
 </configurationDescriptor>

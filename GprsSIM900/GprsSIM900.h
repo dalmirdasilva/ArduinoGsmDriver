@@ -1,19 +1,55 @@
 /**
  * Arduino - Gsm driver
  * 
- * Gprs.h
+ * GprsSIM900.h
  * 
-* GPRS connection using.
+ * GPRS connection using SIM900.
  * 
  * @author Dalmir da Silva <dalmirdasilva@gmail.com>
  */
 
-#ifndef __ARDUINO_DRIVER_GSM_GPRS_H__
-#define __ARDUINO_DRIVER_GSM_GPRS_H__ 1
+#ifndef __ARDUINO_DRIVER_GSM_GPRS_SIM900_H__
+#define __ARDUINO_DRIVER_GSM_GPRS_SIM900_H__ 1
 
-class Gprs {
+#define GPRS_SIM900_MAX_COMMAND_LENGHT 64
+
+#include <Gprs.h>
+#include <SIM900.h>
+#include <stdlib.h>
+
+class GprsSIM900 : public Gprs {
+    
+    /**
+     * SIM900 pointer.
+     */
+    SIM900 *sim;
+    
+    /**
+     * Multi connection.
+     */
+    bool multiconnection;
     
 public:
+    
+    enum OperationResult {
+        OK = 0,
+        ERROR = 1,
+        COMMAND_TOO_LONG = 2
+    };
+    
+    /**
+     * Public constructor.
+     * 
+     * @param sim       The SIM900 pointer.
+     */
+    GprsSIM900(SIM900 *sim);
+
+    /**
+     * Initializes the device.
+     * 
+     * @param           The bound rate to be used.
+     */
+    void begin(int bound);
 
     /**
      * Start Up Multi-IP Connection 
@@ -23,7 +59,7 @@ public:
      * @param use           0 disables multi IP connection and 1 enables.
      * @return
      */
-    virtual unsigned char useMultiplexer(bool use) = 0;
+    unsigned char useMultiplexer(bool use);
 
     /**
      * Start Task and Set APN, LOGIN, PASSWORD
@@ -35,7 +71,7 @@ public:
      * @param password      The GPRS password.
      * @return
      */
-    virtual unsigned char startTask(unsigned char *apn, unsigned char *login, unsigned char *password) = 0;
+    unsigned char startTask(unsigned char *apn, unsigned char *login, unsigned char *password);
 
     /**
      * Bring Up Wireless Connection with GPRS or CSD
@@ -44,7 +80,7 @@ public:
      * 
      * @return 
      */
-    virtual unsigned char bringUp() = 0;
+    unsigned char bringUp();
 
     /**
      * Get Local IP Address
@@ -55,77 +91,77 @@ public:
      * @param entry         Phonebook entry.
      * @return 
      */
-    virtual unsigned char obtainIp(unsigned char *buf) = 0;
+    unsigned char obtainIp(unsigned char *buf);
 
     /**
      * Query Current Connection Status
      * 
      * @return 
      */
-    virtual unsigned char status() = 0;
+    unsigned char status();
 
     /**
      * Configure Domain Name Server
      * 
      * @return 
      */
-    virtual unsigned char configureDns(unsigned char *primary, unsigned char *secondary) = 0;
+    unsigned char configureDns(unsigned char *primary, unsigned char *secondary);
 
     /**
      * Start Up TCP or UDP Connection
      * 
      * @return 
      */
-    virtual unsigned char open(unsigned char mode, unsigned char *address, unsigned char port) = 0;
+    unsigned char open(unsigned char mode, unsigned char *address, unsigned char port);
 
     /**
      * Start Up TCP or UDP Connection
      * 
      * @return 
      */
-    virtual unsigned char open(unsigned char connection, unsigned char mode, unsigned char *address, unsigned char port) = 0;
+    unsigned char open(unsigned char connection, unsigned char mode, unsigned char *address, unsigned char port);
 
     /**
      * Close TCP or UDP Connection
      * 
      * @return 
      */
-    virtual unsigned char close(unsigned char connection) = 0;
+    unsigned char close(unsigned char connection);
 
     /**
      * Query the IP Address of Given Domain Name
      * 
      * @return 
      */
-    virtual unsigned char resolve(unsigned char *name, unsigned char *buf, unsigned int len) = 0;
+    unsigned char resolve(unsigned char *name, unsigned char *buf, unsigned int len);
 
     /**
      * Send Data Through TCP or UDP Connection
      * 
      * @return 
      */
-    virtual unsigned char send(unsigned char *buf, unsigned int len) = 0;
+    unsigned char send(unsigned char *buf, unsigned int len);
 
     /**
      * Send Data Through TCP or UDP Connection
      * 
      * @return 
      */
-    virtual unsigned char send(unsigned char connection, unsigned char *buf, unsigned int len) = 0;
+    unsigned char send(unsigned char connection, unsigned char *buf, unsigned int len);
     
     /**
      * Configure Module as Server
      * 
      * @return 
      */
-    virtual unsigned char setUpServer(unsigned char mode, unsigned int port) = 0;
+    unsigned char setUpServer(unsigned char mode, unsigned int port);
 
     /**
      * Deactivate GPRS PDP Context
      * 
      * @return 
      */
-    virtual unsigned char shutdown() = 0;
+    unsigned char shutdown();
 };
 
-#endif /* __ARDUINO_DRIVER_GSM_GPRS_H__ */
+#endif /* __ARDUINO_DRIVER_GSM_GPRS_SIM900_H__ */
