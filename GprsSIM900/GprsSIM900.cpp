@@ -32,10 +32,18 @@ unsigned char GprsSIM900::useMultiplexer(bool use) {
 }
 
 unsigned char GprsSIM900::startTask(unsigned char *apn, unsigned char *login, unsigned char *password) {
-    sim->write("AT+CSTT=");
-    sim->write((const char*) apn);
-    sim->write((const char*) login);
-    sim->write((const char*) password);
+    unsigned char i;
+    const char* parts[] = {
+        "AT+CSTT=",
+        (const char*) apn,
+        ",",
+        (const char*) login,
+        ",",
+        (const char*) password
+    };
+    for (i = 0; i < 6; i++) {
+        sim->write(parts[i]);
+    }
     bool expected = sim->sendCommandExpecting("", "OK");
     return (unsigned char) (expected ? GprsSIM900::OK : GprsSIM900::ERROR);
 }
