@@ -15,6 +15,7 @@
 
 SIM900::SIM900(unsigned char receivePin, unsigned char transmitPin) : SoftwareSerial(receivePin, transmitPin) {
     rxBuffer[0] = '\0';
+    echo = true;
 }
 
 void SIM900::begin(long bound) {
@@ -31,7 +32,7 @@ void SIM900::begin(long bound) {
     } while (tries--);
 }
 
-bool SIM900::sendCommandExpecting(char *command, char *expectation, bool append, unsigned long timeout) {
+bool SIM900::sendCommandExpecting(const char *command, char *expectation, bool append, unsigned long timeout) {
     if (sendCommand(command, append, timeout) == 0) {
         return false;
     }
@@ -44,8 +45,8 @@ bool SIM900::doesResponseContains(char *expectation) {
     return does;
 }
 
-int SIM900::sendCommand(char *command, bool append, unsigned long timeout) {
-    flush();
+int SIM900::sendCommand(const char *command, bool append, unsigned long timeout) {
+    rxBuffer[0] = '\0';
     if (append) {
         print("AT");
     }
@@ -75,6 +76,15 @@ int SIM900::readResponse(unsigned long timeout) {
         }
     } while ((millis() - start) < timeout && availableBytes);
     return pointer;
+}
+
+void SIM900::setCommandEcho(bool echo) {
+    this->echo = echo;
+    char command[] = "E0";
+    if (echo) {
+        command[1] = '1';
+    }
+    sendCommand(command, true, 100);
 }
 
 #endif /* __ARDUINO_DRIVER_GSM_SIM900_CPP__ */

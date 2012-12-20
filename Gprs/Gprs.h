@@ -3,7 +3,7 @@
  * 
  * Gprs.h
  * 
-* GPRS connection using.
+ * GPRS connection using.
  * 
  * @author Dalmir da Silva <dalmirdasilva@gmail.com>
  */
@@ -12,7 +12,6 @@
 #define __ARDUINO_DRIVER_GSM_GPRS_H__ 1
 
 class Gprs {
-    
 public:
 
     /**
@@ -35,7 +34,7 @@ public:
      * @param password      The GPRS password.
      * @return
      */
-    virtual unsigned char startTask(unsigned char *apn, unsigned char *login, unsigned char *password) = 0;
+    virtual unsigned char startTask(const char *apn, const char *login, const char *password) = 0;
 
     /**
      * Bring Up Wireless Connection with GPRS or CSD
@@ -69,35 +68,43 @@ public:
      * 
      * @return 
      */
-    virtual unsigned char configureDns(unsigned char *primary, unsigned char *secondary) = 0;
+    virtual unsigned char configureDns(const char *primary, const char *secondary) = 0;
 
     /**
      * Start Up TCP or UDP Connection
      * 
      * @return 
      */
-    virtual unsigned char open(unsigned char mode, unsigned char *address, unsigned char port) = 0;
+    virtual unsigned char open(const char *mode, const char *address, unsigned int port) = 0;
 
     /**
      * Start Up TCP or UDP Connection
      * 
      * @return 
      */
-    virtual unsigned char open(unsigned char connection, unsigned char mode, unsigned char *address, unsigned char port) = 0;
+    virtual unsigned char open(char connection, const char *mode, const char *address, unsigned int port) = 0;
+
+    /**
+     * Close TCP or UDP Connection
+     * 
+     * @param connection
+     * @return 
+     */
+    virtual unsigned char close(char connection) = 0;
 
     /**
      * Close TCP or UDP Connection
      * 
      * @return 
      */
-    virtual unsigned char close(unsigned char connection) = 0;
+    virtual unsigned char close() = 0;
 
     /**
      * Query the IP Address of Given Domain Name
      * 
      * @return 
      */
-    virtual unsigned char resolve(unsigned char *name, unsigned char *buf, unsigned int len) = 0;
+    virtual unsigned char resolve(const char *name, unsigned char *buf, unsigned int len) = 0;
 
     /**
      * Send Data Through TCP or UDP Connection
@@ -111,8 +118,8 @@ public:
      * 
      * @return 
      */
-    virtual unsigned char send(unsigned char connection, unsigned char *buf, unsigned int len) = 0;
-    
+    virtual unsigned char send(char connection, unsigned char *buf, unsigned int len) = 0;
+
     /**
      * Configure Module as Server
      * 

@@ -49,7 +49,7 @@ public:
      * 
      * @param           The bound rate to be used.
      */
-    void begin(int bound);
+    void begin(long bound);
 
     /**
      * Start Up Multi-IP Connection 
@@ -71,7 +71,7 @@ public:
      * @param password      The GPRS password.
      * @return
      */
-    unsigned char startTask(unsigned char *apn, unsigned char *login, unsigned char *password);
+    unsigned char startTask(const char *apn, const char *login, const char *password);
 
     /**
      * Bring Up Wireless Connection with GPRS or CSD
@@ -105,35 +105,43 @@ public:
      * 
      * @return 
      */
-    unsigned char configureDns(unsigned char *primary, unsigned char *secondary);
+    unsigned char configureDns(const char *primary, const char *secondary);
 
     /**
      * Start Up TCP or UDP Connection
      * 
      * @return 
      */
-    unsigned char open(unsigned char mode, unsigned char *address, unsigned char port);
+    unsigned char open(const char *mode, const char *address, unsigned int port);
 
     /**
      * Start Up TCP or UDP Connection
      * 
      * @return 
      */
-    unsigned char open(unsigned char connection, unsigned char mode, unsigned char *address, unsigned char port);
+    unsigned char open(char connection, const char *mode, const char *address, unsigned int port);
+
+    /**
+     * Close TCP or UDP Connection
+     * 
+     * @param connection
+     * @return 
+     */
+    unsigned char close(char connection);
 
     /**
      * Close TCP or UDP Connection
      * 
      * @return 
      */
-    unsigned char close(unsigned char connection);
+    unsigned char close();
 
     /**
      * Query the IP Address of Given Domain Name
      * 
      * @return 
      */
-    unsigned char resolve(unsigned char *name, unsigned char *buf, unsigned int len);
+    unsigned char resolve(const char *name, unsigned char *buf, unsigned int len);
 
     /**
      * Send Data Through TCP or UDP Connection
@@ -147,7 +155,7 @@ public:
      * 
      * @return 
      */
-    unsigned char send(unsigned char connection, unsigned char *buf, unsigned int len);
+    unsigned char send(char connection, unsigned char *buf, unsigned int len);
     
     /**
      * Configure Module as Server

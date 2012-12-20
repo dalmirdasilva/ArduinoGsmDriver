@@ -65,7 +65,7 @@ public:
      * 
      * @return 
      */
-    virtual unsigned char configureDns(unsigned char *primary, unsigned char *secondary) = 0;
+    virtual unsigned char configureDns(const char *primary, const char *secondary) = 0;
 
     /**
      * Start Up TCP or UDP Connection
@@ -79,14 +79,14 @@ public:
      * 
      * @return 
      */
-    virtual unsigned char open(unsigned char connection, unsigned char mode, unsigned char *address, unsigned char port) = 0;
+    virtual unsigned char open(char connection, unsigned char mode, unsigned char *address, unsigned char port) = 0;
 
     /**
      * Close TCP or UDP Connection
      * 
      * @return 
      */
-    virtual unsigned char close(unsigned char connection) = 0;
+    virtual unsigned char close(char connection) = 0;
 
     /**
      * Query the IP Address of Given Domain Name
@@ -107,7 +107,7 @@ public:
      * 
      * @return 
      */
-    virtual unsigned char send(unsigned char connection, unsigned char *buf, unsigned int len) = 0;
+    virtual unsigned char send(char connection, unsigned char *buf, unsigned int len) = 0;
     
     /**
      * Configure Module as Server

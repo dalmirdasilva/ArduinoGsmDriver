@@ -27,6 +27,11 @@ class SIM900 : public SoftwareSerial {
      * Pointer to the RX buffer.
      */
     unsigned char *rxPointer;
+    
+    /**
+     * Using echo.
+     */
+    bool echo;
 
 public:
 
@@ -73,7 +78,7 @@ public:
      * @param expectation       The expectation string.
      * @return 
      */
-    inline bool sendCommandExpecting(char *command, char *expectation, bool append) {
+    inline bool sendCommandExpecting(const char *command, char *expectation, bool append) {
         return sendCommandExpecting(command, expectation, append, 1000);
     }
 
@@ -86,7 +91,7 @@ public:
      * @param expectation       The expectation string.
      * @return 
      */
-    inline bool sendCommandExpecting(char *command, char *expectation, unsigned long timeout) {
+    inline bool sendCommandExpecting(const char *command, char *expectation, unsigned long timeout) {
         return sendCommandExpecting(command, expectation, false, timeout);
     }
 
@@ -100,7 +105,7 @@ public:
      * @param expectation       The expectation string.
      * @return 
      */
-    inline bool sendCommandExpecting(char *command, char *expectation) {
+    inline bool sendCommandExpecting(const char *command, char *expectation) {
         return sendCommandExpecting(command, expectation, (bool) false);
     }
 
@@ -119,7 +124,7 @@ public:
      * @param timeout           The maximum time to perform the op.
      * @return 
      */
-    int sendCommand(char *command, bool append, unsigned long timeout);
+    int sendCommand(const char **command, bool append, unsigned long timeout);
 
     /**
      * Sends a command to the device.
@@ -130,7 +135,7 @@ public:
      * @param append            Boolean saying if the AT must be appended.
      * @return 
      */
-    inline int sendCommand(char *command, bool append) {
+    inline int sendCommand(const char **command, bool append) {
         return sendCommand(command, append, 1000);
     }
 
@@ -143,7 +148,7 @@ public:
      * @param append            Boolean saying if the AT must be appended.
      * @return 
      */
-    inline int sendCommand(char *command, unsigned long timeout) {
+    inline int sendCommand(const char **command, unsigned long timeout) {
         return sendCommand(command, (bool) false, timeout);
     }
 
@@ -156,7 +161,7 @@ public:
      * @param command           The command string, should be \0 ended.
      * @return 
      */
-    inline int sendCommand(char *command) {
+    inline int sendCommand(const char **command) {
         return sendCommand(command, (bool) false);
     }
 
@@ -173,13 +178,7 @@ public:
      * 
      * @param echo
      */
-    void setCommandEcho(bool echo) {
-        char command[] = "ATE0";
-        if (echo) {
-            command[3] = '1';
-        }
-        sendCommand(command, true, 100);
-    }
+    void setCommandEcho(bool echo);
 };
 
 #endif /* __ARDUINO_DRIVER_GSM_SIM900_H__ */

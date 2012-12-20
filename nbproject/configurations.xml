@@ -19,6 +19,14 @@
         <in>Gprs.h</in>
       </df>
       <df name="GprsSIM900">
+        <df name="examples">
+          <df name="configuring_dns">
+            <in>configuring_dns.ino</in>
+          </df>
+          <df name="getting_ip">
+            <in>getting_ip.ino</in>
+          </df>
+        </df>
         <in>GprsSIM900.cpp</in>
         <in>GprsSIM900.h</in>
       </df>
@@ -26,6 +34,9 @@
         <df name="datasheet">
         </df>
         <df name="examples">
+          <df name="proxy">
+            <in>proxy.ino</in>
+          </df>
         </df>
         <in>SIM900.cpp</in>
         <in>SIM900.h</in>

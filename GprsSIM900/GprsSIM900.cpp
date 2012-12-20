@@ -17,8 +17,9 @@ GprsSIM900::GprsSIM900(SIM900 *sim) : sim(sim) {
     multiconnection = false;
 }
 
-void GprsSIM900::begin(int bound) {
+void GprsSIM900::begin(long bound) {
     sim->begin(bound);
+    sim->setCommandEcho(false);
     sim->sendCommand("+CIPSHUT", (bool) true);
 }
 
@@ -31,20 +32,22 @@ unsigned char GprsSIM900::useMultiplexer(bool use) {
     return (unsigned char) sim->sendCommandExpecting(command, "OK", (bool) true);
 }
 
-unsigned char GprsSIM900::startTask(unsigned char *apn, unsigned char *login, unsigned char *password) {
+unsigned char GprsSIM900::startTask(const char *apn, const char *login, const char *password) {
     bool expected;
-    sim->write("AT+CSTT=");
-    sim->write((const char*) apn);
-    sim->write(",");
-    sim->write((const char*) login);
-    sim->write(",");
-    sim->write((const char*) password);
-    expected = sim->sendCommandExpecting("", "OK");
+    sim->write("AT+CSTT=\"");
+    sim->write(apn);
+    sim->write("\",\"");
+    sim->write(login);
+    sim->write("\",\"");
+    sim->write(password);
+    expected = sim->sendCommandExpecting("\"", "OK");
     return (unsigned char) (expected ? GprsSIM900::OK : GprsSIM900::ERROR);
 }
 
 unsigned char GprsSIM900::bringUp() {
-    return (unsigned char) sim->sendCommandExpecting("+CIICR", "OK", true, 20000);
+    bool expected;
+    expected = sim->sendCommandExpecting("+CIICR", "OK", true, 20000);
+    return (unsigned char) (expected ? GprsSIM900::OK : GprsSIM900::ERROR);
 }
 
 unsigned char GprsSIM900::obtainIp(unsigned char *buf) {
@@ -79,25 +82,66 @@ unsigned char GprsSIM900::status() {
     sim->sendCommand("+CIFSR", (bool) true);
 }
 
-unsigned char GprsSIM900::configureDns(unsigned char *primary, unsigned char *secondary) {
+unsigned char GprsSIM900::configureDns(const char *primary, const char *secondary) {
+    bool expected;
+    sim->write("AT+CDNSCFG=\"");
+    sim->write(primary);
+    sim->write("\",\"");
+    sim->write(secondary);
+    expected = sim->sendCommandExpecting("\"", "OK");
+    return (unsigned char) (expected ? GprsSIM900::OK : GprsSIM900::ERROR);
 }
 
-unsigned char GprsSIM900::open(unsigned char mode, unsigned char *address, unsigned char port) {
+unsigned char GprsSIM900::open(const char *mode, const char *address, unsigned int port) {
+    return open(-1, mode, address, port);
 }
 
-unsigned char GprsSIM900::open(unsigned char connection, unsigned char mode, unsigned char *address, unsigned char port) {
+unsigned char GprsSIM900::open(char connection, const char *mode, const char *address, unsigned int port) {
+    bool expected;
+    sim->write("AT+CIPSTART=");
+    if (connection != -1) {
+        sim->write('0' + connection);
+        sim->write(',');
+    }
+    sim->write('"');
+    sim->write(mode);
+    sim->write("\",\"");
+    sim->write(address);
+    sim->write("\",\"");
+    sim->print(port, DEC);
+    expected = sim->sendCommandExpecting("\"", "OK");
+    return (unsigned char) (expected ? GprsSIM900::OK : GprsSIM900::ERROR);
 }
 
-unsigned char GprsSIM900::close(unsigned char connection) {
+unsigned char GprsSIM900::close(char connection) {
+    bool expected;
+    sim->write("AT+CIPCLOSE=1");
+    if (connection != -1) {
+        sim->write(',');
+        sim->write('0' + connection);
+    }
+    expected = sim->sendCommandExpecting("", "OK");
+    return (unsigned char) (expected ? GprsSIM900::OK : GprsSIM900::ERROR);
 }
 
-unsigned char GprsSIM900::resolve(unsigned char *name, unsigned char *buf, unsigned int len) {
+unsigned char GprsSIM900::close() {
+    return close(-1);
+}
+
+unsigned char GprsSIM900::resolve(const char *name, unsigned char *buf, unsigned int len) {
+    bool expected;
+    sim->write("AT+CDNSGIP=");
+    expected = sim->sendCommandExpecting(name, "OK");
+    return (unsigned char) (expected ? GprsSIM900::OK : GprsSIM900::ERROR);
 }
 
 unsigned char GprsSIM900::send(unsigned char *buf, unsigned int len) {
+    AT+CIPSEND=<length>
+    sim->write(buf, len);
 }
 
-unsigned char GprsSIM900::send(unsigned char connection, unsigned char *buf, unsigned int len) {
+unsigned char GprsSIM900::send(char connection, unsigned char *buf, unsigned int len) {
+    sim->readBytes(buf, len);
 }
 
 unsigned char GprsSIM900::setUpServer(unsigned char mode, unsigned int port) {
