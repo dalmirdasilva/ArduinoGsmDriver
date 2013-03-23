@@ -17,8 +17,8 @@ CallSIM900::CallSIM900(SIM900 *sim) : sim(sim) {
 }
 
 unsigned char CallSIM900::answer() {
-    sim.sendCommand("ATA\n", 4);
-    return sim.receiveStatus();
+//    sim->sendCommand((const char*) "ATA\n", 4);
+//    return sim->receiveStatus();
 }
 
 unsigned char CallSIM900::callNumber(unsigned char *number) {

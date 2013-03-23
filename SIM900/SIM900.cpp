@@ -23,7 +23,7 @@ void SIM900::begin(long bound) {
     unsigned char tries = 3;
     SoftwareSerial::begin(bound);
     do {
-        ready = sendCommandExpecting("AT", "OK", (unsigned long) 100);
+        ready = sendCommandExpecting((const char *)"AT", (const char *)"OK", (unsigned long) 100);
         if (!ready) {
             delay(100);
         } else {
@@ -32,14 +32,14 @@ void SIM900::begin(long bound) {
     } while (tries--);
 }
 
-bool SIM900::sendCommandExpecting(const char *command, char *expectation, bool append, unsigned long timeout) {
+bool SIM900::sendCommandExpecting(const char *command, const char *expectation, bool append, unsigned long timeout) {
     if (sendCommand(command, append, timeout) == 0) {
         return false;
     }
     return doesResponseContains(expectation);
 }
 
-bool SIM900::doesResponseContains(char *expectation) {
+bool SIM900::doesResponseContains(const char *expectation) {
     rxPointer = &rxBuffer[0];
     bool does = strstr((const char*) rxPointer, (const char*) expectation) != NULL;
     return does;
@@ -57,7 +57,7 @@ int SIM900::sendCommand(const char *command, bool append, unsigned long timeout)
 int SIM900::readResponse(unsigned long timeout) {
     int availableBytes;
     unsigned long start = millis();
-    unsigned char pointer = 0;
+    int pointer = 0;
     while (!available() && (millis() - start) < timeout);
     start = millis();
     do {

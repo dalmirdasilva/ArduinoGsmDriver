@@ -12,6 +12,7 @@ void loop() {
   if (serial.available()) {
     Serial.write(serial.read());
   }
+  
   if (Serial.available()) {
     serial.write(Serial.read());
   }

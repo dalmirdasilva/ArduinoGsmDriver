@@ -12,13 +12,14 @@
 #define __ARDUINO_DRIVER_GSM_CALL_SIM900_H__ 1
 
 #include <SIM900.h>
+#include <Call.h>
 
 class CallSIM900 : public Call {
-    
+
     SIM900 *sim;
-    
+
 public:
-    
+
     CallSIM900(SIM900 *sim);
 
     /**

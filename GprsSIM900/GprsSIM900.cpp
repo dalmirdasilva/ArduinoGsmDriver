@@ -14,7 +14,7 @@
 #include "GprsSIM900.h"
 
 GprsSIM900::GprsSIM900(SIM900 *sim) : sim(sim) {
-    multiconnection = false;
+    multiplexed = false;
 }
 
 void GprsSIM900::begin(long bound) {
@@ -28,7 +28,7 @@ unsigned char GprsSIM900::useMultiplexer(bool use) {
     if (use) {
         command[8] = '1';
     }
-    multiconnection = use;
+    multiplexed = use;
     return (unsigned char) sim->sendCommandExpecting(command, "OK", (bool) true);
 }
 
@@ -136,12 +136,12 @@ unsigned char GprsSIM900::resolve(const char *name, unsigned char *buf, unsigned
 }
 
 unsigned char GprsSIM900::send(unsigned char *buf, unsigned int len) {
-    AT+CIPSEND=<length>
-    sim->write(buf, len);
+    //AT+CIPSEND=<length>
+    // sim->write(buf, len);
 }
 
 unsigned char GprsSIM900::send(char connection, unsigned char *buf, unsigned int len) {
-    sim->readBytes(buf, len);
+    sim->readBytes((char *)buf, len);
 }
 
 unsigned char GprsSIM900::setUpServer(unsigned char mode, unsigned int port) {

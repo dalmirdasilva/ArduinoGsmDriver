@@ -1,0 +1,1213 @@
+In archive libArduinoGsm.a:
+
+GsmSIM900.o:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000000  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000000  00000000  00000000  00000034  2**0
+                  ALLOC
+
+Sms.o:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000000  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000000  00000000  00000000  00000034  2**0
+                  ALLOC
+
+SIM900.o:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000002cc  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  1 .data         00000019  00000000  00000000  00000300  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, DATA
+  2 .bss          00000000  00000000  00000000  00000319  2**0
+                  ALLOC
+Disassembly of section .text:
+
+00000000 <_ZN6SIM90012readResponseEm>:
+   0:	2f 92       	push	r2
+   2:	3f 92       	push	r3
+   4:	4f 92       	push	r4
+   6:	5f 92       	push	r5
+   8:	6f 92       	push	r6
+   a:	7f 92       	push	r7
+   c:	8f 92       	push	r8
+   e:	9f 92       	push	r9
+  10:	af 92       	push	r10
+  12:	bf 92       	push	r11
+  14:	cf 92       	push	r12
+  16:	df 92       	push	r13
+  18:	ef 92       	push	r14
+  1a:	ff 92       	push	r15
+  1c:	0f 93       	push	r16
+  1e:	1f 93       	push	r17
+  20:	cf 93       	push	r28
+  22:	df 93       	push	r29
+  24:	7c 01       	movw	r14, r24
+  26:	3a 01       	movw	r6, r20
+  28:	4b 01       	movw	r8, r22
+  2a:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+  2e:	5b 01       	movw	r10, r22
+  30:	6c 01       	movw	r12, r24
+  32:	27 01       	movw	r4, r14
+  34:	d7 01       	movw	r26, r14
+  36:	ed 91       	ld	r30, X+
+  38:	fc 91       	ld	r31, X
+  3a:	04 80       	ldd	r0, Z+4	; 0x04
+  3c:	f5 81       	ldd	r31, Z+5	; 0x05
+  3e:	e0 2d       	mov	r30, r0
+  40:	c2 01       	movw	r24, r4
+  42:	09 95       	icall
+  44:	89 2b       	or	r24, r25
+  46:	01 f0       	breq	.+0      	; 0x48 <_ZN6SIM90012readResponseEm+0x48>
+  48:	00 c0       	rjmp	.+0      	; 0x4a <_ZN6SIM90012readResponseEm+0x4a>
+  4a:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+  4e:	6a 19       	sub	r22, r10
+  50:	7b 09       	sbc	r23, r11
+  52:	8c 09       	sbc	r24, r12
+  54:	9d 09       	sbc	r25, r13
+  56:	66 15       	cp	r22, r6
+  58:	77 05       	cpc	r23, r7
+  5a:	88 05       	cpc	r24, r8
+  5c:	99 05       	cpc	r25, r9
+  5e:	00 f0       	brcs	.+0      	; 0x60 <_ZN6SIM90012readResponseEm+0x60>
+  60:	00 c0       	rjmp	.+0      	; 0x62 <_ZN6SIM90012readResponseEm+0x62>
+  62:	00 c0       	rjmp	.+0      	; 0x64 <_ZN6SIM90012readResponseEm+0x64>
+  64:	d7 01       	movw	r26, r14
+  66:	ed 91       	ld	r30, X+
+  68:	fc 91       	ld	r31, X
+  6a:	04 80       	ldd	r0, Z+4	; 0x04
+  6c:	f5 81       	ldd	r31, Z+5	; 0x05
+  6e:	e0 2d       	mov	r30, r0
+  70:	c2 01       	movw	r24, r4
+  72:	09 95       	icall
+  74:	ec 01       	movw	r28, r24
+  76:	18 16       	cp	r1, r24
+  78:	19 06       	cpc	r1, r25
+  7a:	04 f4       	brge	.+0      	; 0x7c <_ZN6SIM90012readResponseEm+0x7c>
+  7c:	80 0f       	add	r24, r16
+  7e:	91 1f       	adc	r25, r17
+  80:	8f 3f       	cpi	r24, 0xFF	; 255
+  82:	91 05       	cpc	r25, r1
+  84:	01 f0       	breq	.+0      	; 0x86 <_ZN6SIM90012readResponseEm+0x86>
+  86:	04 f0       	brlt	.+0      	; 0x88 <_ZN6SIM90012readResponseEm+0x88>
+  88:	e8 01       	movw	r28, r16
+  8a:	c0 95       	com	r28
+  8c:	d0 95       	com	r29
+  8e:	c0 50       	subi	r28, 0x00	; 0
+  90:	df 4f       	sbci	r29, 0xFF	; 255
+  92:	01 f4       	brne	.+0      	; 0x94 <_ZN6SIM90012readResponseEm+0x94>
+  94:	d7 01       	movw	r26, r14
+  96:	ed 91       	ld	r30, X+
+  98:	fc 91       	ld	r31, X
+  9a:	02 84       	ldd	r0, Z+10	; 0x0a
+  9c:	f3 85       	ldd	r31, Z+11	; 0x0b
+  9e:	e0 2d       	mov	r30, r0
+  a0:	c2 01       	movw	r24, r4
+  a2:	09 95       	icall
+  a4:	00 c0       	rjmp	.+0      	; 0xa6 <_ZN6SIM90012readResponseEm+0xa6>
+  a6:	b8 01       	movw	r22, r16
+  a8:	64 5e       	subi	r22, 0xE4	; 228
+  aa:	7f 4f       	sbci	r23, 0xFF	; 255
+  ac:	6e 0d       	add	r22, r14
+  ae:	7f 1d       	adc	r23, r15
+  b0:	c1 01       	movw	r24, r2
+  b2:	ae 01       	movw	r20, r28
+  b4:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+  b8:	0c 0f       	add	r16, r28
+  ba:	1d 1f       	adc	r17, r29
+  bc:	f7 01       	movw	r30, r14
+  be:	e0 0f       	add	r30, r16
+  c0:	f1 1f       	adc	r31, r17
+  c2:	14 8e       	std	Z+28, r1	; 0x1c
+  c4:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+  c8:	6a 19       	sub	r22, r10
+  ca:	7b 09       	sbc	r23, r11
+  cc:	8c 09       	sbc	r24, r12
+  ce:	9d 09       	sbc	r25, r13
+  d0:	66 15       	cp	r22, r6
+  d2:	77 05       	cpc	r23, r7
+  d4:	88 05       	cpc	r24, r8
+  d6:	99 05       	cpc	r25, r9
+  d8:	00 f4       	brcc	.+0      	; 0xda <_ZN6SIM90012readResponseEm+0xda>
+  da:	cd 2b       	or	r28, r29
+  dc:	01 f4       	brne	.+0      	; 0xde <_ZN6SIM90012readResponseEm+0xde>
+  de:	c8 01       	movw	r24, r16
+  e0:	df 91       	pop	r29
+  e2:	cf 91       	pop	r28
+  e4:	1f 91       	pop	r17
+  e6:	0f 91       	pop	r16
+  e8:	ff 90       	pop	r15
+  ea:	ef 90       	pop	r14
+  ec:	df 90       	pop	r13
+  ee:	cf 90       	pop	r12
+  f0:	bf 90       	pop	r11
+  f2:	af 90       	pop	r10
+  f4:	9f 90       	pop	r9
+  f6:	8f 90       	pop	r8
+  f8:	7f 90       	pop	r7
+  fa:	6f 90       	pop	r6
+  fc:	5f 90       	pop	r5
+  fe:	4f 90       	pop	r4
+ 100:	3f 90       	pop	r3
+ 102:	2f 90       	pop	r2
+ 104:	08 95       	ret
+ 106:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+ 10a:	5b 01       	movw	r10, r22
+ 10c:	6c 01       	movw	r12, r24
+ 10e:	17 01       	movw	r2, r14
+ 110:	00 e0       	ldi	r16, 0x00	; 0
+ 112:	10 e0       	ldi	r17, 0x00	; 0
+ 114:	00 c0       	rjmp	.+0      	; 0x116 <_ZN6SIM90011sendCommandEPKcbm>
+
+00000116 <_ZN6SIM90011sendCommandEPKcbm>:
+ 116:	cf 92       	push	r12
+ 118:	df 92       	push	r13
+ 11a:	ef 92       	push	r14
+ 11c:	ff 92       	push	r15
+ 11e:	0f 93       	push	r16
+ 120:	1f 93       	push	r17
+ 122:	cf 93       	push	r28
+ 124:	df 93       	push	r29
+ 126:	ec 01       	movw	r28, r24
+ 128:	6b 01       	movw	r12, r22
+ 12a:	78 01       	movw	r14, r16
+ 12c:	89 01       	movw	r16, r18
+ 12e:	1c 8e       	std	Y+28, r1	; 0x1c
+ 130:	44 23       	and	r20, r20
+ 132:	01 f0       	breq	.+0      	; 0x134 <_ZN6SIM90011sendCommandEPKcbm+0x1e>
+ 134:	60 e0       	ldi	r22, 0x00	; 0
+ 136:	70 e0       	ldi	r23, 0x00	; 0
+ 138:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+ 13c:	ce 01       	movw	r24, r28
+ 13e:	b6 01       	movw	r22, r12
+ 140:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+ 144:	ce 01       	movw	r24, r28
+ 146:	b8 01       	movw	r22, r16
+ 148:	a7 01       	movw	r20, r14
+ 14a:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+ 14e:	df 91       	pop	r29
+ 150:	cf 91       	pop	r28
+ 152:	1f 91       	pop	r17
+ 154:	0f 91       	pop	r16
+ 156:	ff 90       	pop	r15
+ 158:	ef 90       	pop	r14
+ 15a:	df 90       	pop	r13
+ 15c:	cf 90       	pop	r12
+ 15e:	08 95       	ret
+
+00000160 <_ZN6SIM90014setCommandEchoEb>:
+ 160:	0f 93       	push	r16
+ 162:	1f 93       	push	r17
+ 164:	df 93       	push	r29
+ 166:	cf 93       	push	r28
+ 168:	00 d0       	rcall	.+0      	; 0x16a <_ZN6SIM90014setCommandEchoEb+0xa>
+ 16a:	0f 92       	push	r0
+ 16c:	cd b7       	in	r28, 0x3d	; 61
+ 16e:	de b7       	in	r29, 0x3e	; 62
+ 170:	fc 01       	movw	r30, r24
+ 172:	e2 5e       	subi	r30, 0xE2	; 226
+ 174:	fe 4f       	sbci	r31, 0xFE	; 254
+ 176:	60 83       	st	Z, r22
+ 178:	ee 51       	subi	r30, 0x1E	; 30
+ 17a:	f1 40       	sbci	r31, 0x01	; 1
+ 17c:	9e 01       	movw	r18, r28
+ 17e:	2f 5f       	subi	r18, 0xFF	; 255
+ 180:	3f 4f       	sbci	r19, 0xFF	; 255
+ 182:	40 e0       	ldi	r20, 0x00	; 0
+ 184:	50 e0       	ldi	r21, 0x00	; 0
+ 186:	83 e0       	ldi	r24, 0x03	; 3
+ 188:	da 01       	movw	r26, r20
+ 18a:	0d 90       	ld	r0, X+
+ 18c:	ad 01       	movw	r20, r26
+ 18e:	d9 01       	movw	r26, r18
+ 190:	0d 92       	st	X+, r0
+ 192:	9d 01       	movw	r18, r26
+ 194:	81 50       	subi	r24, 0x01	; 1
+ 196:	01 f4       	brne	.+0      	; 0x198 <_ZN6SIM90014setCommandEchoEb+0x38>
+ 198:	66 23       	and	r22, r22
+ 19a:	01 f0       	breq	.+0      	; 0x19c <_ZN6SIM90014setCommandEchoEb+0x3c>
+ 19c:	81 e3       	ldi	r24, 0x31	; 49
+ 19e:	8a 83       	std	Y+2, r24	; 0x02
+ 1a0:	cf 01       	movw	r24, r30
+ 1a2:	be 01       	movw	r22, r28
+ 1a4:	6f 5f       	subi	r22, 0xFF	; 255
+ 1a6:	7f 4f       	sbci	r23, 0xFF	; 255
+ 1a8:	41 e0       	ldi	r20, 0x01	; 1
+ 1aa:	04 e6       	ldi	r16, 0x64	; 100
+ 1ac:	10 e0       	ldi	r17, 0x00	; 0
+ 1ae:	20 e0       	ldi	r18, 0x00	; 0
+ 1b0:	30 e0       	ldi	r19, 0x00	; 0
+ 1b2:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+ 1b6:	0f 90       	pop	r0
+ 1b8:	0f 90       	pop	r0
+ 1ba:	0f 90       	pop	r0
+ 1bc:	cf 91       	pop	r28
+ 1be:	df 91       	pop	r29
+ 1c0:	1f 91       	pop	r17
+ 1c2:	0f 91       	pop	r16
+ 1c4:	08 95       	ret
+
+000001c6 <_ZN6SIM90020doesResponseContainsEPKc>:
+ 1c6:	fc 01       	movw	r30, r24
+ 1c8:	4c 96       	adiw	r24, 0x1c	; 28
+ 1ca:	e4 5e       	subi	r30, 0xE4	; 228
+ 1cc:	fe 4f       	sbci	r31, 0xFE	; 254
+ 1ce:	91 83       	std	Z+1, r25	; 0x01
+ 1d0:	80 83       	st	Z, r24
+ 1d2:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+ 1d6:	9c 01       	movw	r18, r24
+ 1d8:	80 e0       	ldi	r24, 0x00	; 0
+ 1da:	23 2b       	or	r18, r19
+ 1dc:	01 f0       	breq	.+0      	; 0x1de <_ZN6SIM90020doesResponseContainsEPKc+0x18>
+ 1de:	81 e0       	ldi	r24, 0x01	; 1
+ 1e0:	08 95       	ret
+
+000001e2 <_ZN6SIM90020sendCommandExpectingEPKcS1_bm>:
+ 1e2:	cf 92       	push	r12
+ 1e4:	df 92       	push	r13
+ 1e6:	ef 92       	push	r14
+ 1e8:	ff 92       	push	r15
+ 1ea:	0f 93       	push	r16
+ 1ec:	1f 93       	push	r17
+ 1ee:	cf 93       	push	r28
+ 1f0:	df 93       	push	r29
+ 1f2:	ec 01       	movw	r28, r24
+ 1f4:	6a 01       	movw	r12, r20
+ 1f6:	42 2f       	mov	r20, r18
+ 1f8:	98 01       	movw	r18, r16
+ 1fa:	87 01       	movw	r16, r14
+ 1fc:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+ 200:	89 2b       	or	r24, r25
+ 202:	01 f4       	brne	.+0      	; 0x204 <_ZN6SIM90020sendCommandExpectingEPKcS1_bm+0x22>
+ 204:	80 e0       	ldi	r24, 0x00	; 0
+ 206:	00 c0       	rjmp	.+0      	; 0x208 <_ZN6SIM90020sendCommandExpectingEPKcS1_bm+0x26>
+ 208:	ce 01       	movw	r24, r28
+ 20a:	b6 01       	movw	r22, r12
+ 20c:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+ 210:	df 91       	pop	r29
+ 212:	cf 91       	pop	r28
+ 214:	1f 91       	pop	r17
+ 216:	0f 91       	pop	r16
+ 218:	ff 90       	pop	r15
+ 21a:	ef 90       	pop	r14
+ 21c:	df 90       	pop	r13
+ 21e:	cf 90       	pop	r12
+ 220:	08 95       	ret
+
+00000222 <_ZN6SIM9005beginEl>:
+ 222:	df 92       	push	r13
+ 224:	ef 92       	push	r14
+ 226:	ff 92       	push	r15
+ 228:	0f 93       	push	r16
+ 22a:	1f 93       	push	r17
+ 22c:	cf 93       	push	r28
+ 22e:	df 93       	push	r29
+ 230:	ec 01       	movw	r28, r24
+ 232:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+ 236:	43 e0       	ldi	r20, 0x03	; 3
+ 238:	d4 2e       	mov	r13, r20
+ 23a:	ce 01       	movw	r24, r28
+ 23c:	60 e0       	ldi	r22, 0x00	; 0
+ 23e:	70 e0       	ldi	r23, 0x00	; 0
+ 240:	40 e0       	ldi	r20, 0x00	; 0
+ 242:	50 e0       	ldi	r21, 0x00	; 0
+ 244:	20 e0       	ldi	r18, 0x00	; 0
+ 246:	34 e6       	ldi	r19, 0x64	; 100
+ 248:	e3 2e       	mov	r14, r19
+ 24a:	f1 2c       	mov	r15, r1
+ 24c:	01 2d       	mov	r16, r1
+ 24e:	11 2d       	mov	r17, r1
+ 250:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+ 254:	88 23       	and	r24, r24
+ 256:	01 f4       	brne	.+0      	; 0x258 <_ZN6SIM9005beginEl+0x36>
+ 258:	64 e6       	ldi	r22, 0x64	; 100
+ 25a:	70 e0       	ldi	r23, 0x00	; 0
+ 25c:	80 e0       	ldi	r24, 0x00	; 0
+ 25e:	90 e0       	ldi	r25, 0x00	; 0
+ 260:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+ 264:	dd 20       	and	r13, r13
+ 266:	01 f0       	breq	.+0      	; 0x268 <_ZN6SIM9005beginEl+0x46>
+ 268:	da 94       	dec	r13
+ 26a:	00 c0       	rjmp	.+0      	; 0x26c <_ZN6SIM9005beginEl+0x4a>
+ 26c:	df 91       	pop	r29
+ 26e:	cf 91       	pop	r28
+ 270:	1f 91       	pop	r17
+ 272:	0f 91       	pop	r16
+ 274:	ff 90       	pop	r15
+ 276:	ef 90       	pop	r14
+ 278:	df 90       	pop	r13
+ 27a:	08 95       	ret
+
+0000027c <_ZN6SIM900C1Ehh>:
+ 27c:	0f 93       	push	r16
+ 27e:	1f 93       	push	r17
+ 280:	8c 01       	movw	r16, r24
+ 282:	20 e0       	ldi	r18, 0x00	; 0
+ 284:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+ 288:	80 e0       	ldi	r24, 0x00	; 0
+ 28a:	90 e0       	ldi	r25, 0x00	; 0
+ 28c:	f8 01       	movw	r30, r16
+ 28e:	91 83       	std	Z+1, r25	; 0x01
+ 290:	80 83       	st	Z, r24
+ 292:	14 8e       	std	Z+28, r1	; 0x1c
+ 294:	02 5e       	subi	r16, 0xE2	; 226
+ 296:	1e 4f       	sbci	r17, 0xFE	; 254
+ 298:	81 e0       	ldi	r24, 0x01	; 1
+ 29a:	f8 01       	movw	r30, r16
+ 29c:	80 83       	st	Z, r24
+ 29e:	1f 91       	pop	r17
+ 2a0:	0f 91       	pop	r16
+ 2a2:	08 95       	ret
+
+000002a4 <_ZN6SIM900C2Ehh>:
+ 2a4:	0f 93       	push	r16
+ 2a6:	1f 93       	push	r17
+ 2a8:	8c 01       	movw	r16, r24
+ 2aa:	20 e0       	ldi	r18, 0x00	; 0
+ 2ac:	0e 94 00 00 	call	0	; 0x0 <_ZN6SIM90012readResponseEm>
+ 2b0:	80 e0       	ldi	r24, 0x00	; 0
+ 2b2:	90 e0       	ldi	r25, 0x00	; 0
+ 2b4:	f8 01       	movw	r30, r16
+ 2b6:	91 83       	std	Z+1, r25	; 0x01
+ 2b8:	80 83       	st	Z, r24
+ 2ba:	14 8e       	std	Z+28, r1	; 0x1c
+ 2bc:	02 5e       	subi	r16, 0xE2	; 226
+ 2be:	1e 4f       	sbci	r17, 0xFE	; 254
+ 2c0:	81 e0       	ldi	r24, 0x01	; 1
+ 2c2:	f8 01       	movw	r30, r16
+ 2c4:	80 83       	st	Z, r24
+ 2c6:	1f 91       	pop	r17
+ 2c8:	0f 91       	pop	r16
+ 2ca:	08 95       	ret
+
+GprsSIM900.o:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000005bc  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  1 .data         000000b3  00000000  00000000  000005f0  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, DATA
+  2 .bss          00000000  00000000  00000000  000006a3  2**0
+                  ALLOC
+Disassembly of section .text:
+
+00000000 <_ZN10GprsSIM900C2EP6SIM900>:
+   0:	fc 01       	movw	r30, r24
+   2:	80 e0       	ldi	r24, 0x00	; 0
+   4:	90 e0       	ldi	r25, 0x00	; 0
+   6:	91 83       	std	Z+1, r25	; 0x01
+   8:	80 83       	st	Z, r24
+   a:	73 83       	std	Z+3, r23	; 0x03
+   c:	62 83       	std	Z+2, r22	; 0x02
+   e:	14 82       	std	Z+4, r1	; 0x04
+  10:	08 95       	ret
+
+00000012 <_ZN10GprsSIM900C1EP6SIM900>:
+  12:	fc 01       	movw	r30, r24
+  14:	80 e0       	ldi	r24, 0x00	; 0
+  16:	90 e0       	ldi	r25, 0x00	; 0
+  18:	91 83       	std	Z+1, r25	; 0x01
+  1a:	80 83       	st	Z, r24
+  1c:	73 83       	std	Z+3, r23	; 0x03
+  1e:	62 83       	std	Z+2, r22	; 0x02
+  20:	14 82       	std	Z+4, r1	; 0x04
+  22:	08 95       	ret
+
+00000024 <_ZN10GprsSIM9004openEPKcS1_j>:
+  24:	cf 92       	push	r12
+  26:	df 92       	push	r13
+  28:	ef 92       	push	r14
+  2a:	ff 92       	push	r15
+  2c:	0f 93       	push	r16
+  2e:	1f 93       	push	r17
+  30:	dc 01       	movw	r26, r24
+  32:	7b 01       	movw	r14, r22
+  34:	6a 01       	movw	r12, r20
+  36:	89 01       	movw	r16, r18
+  38:	ed 91       	ld	r30, X+
+  3a:	fc 91       	ld	r31, X
+  3c:	06 84       	ldd	r0, Z+14	; 0x0e
+  3e:	f7 85       	ldd	r31, Z+15	; 0x0f
+  40:	e0 2d       	mov	r30, r0
+  42:	6f ef       	ldi	r22, 0xFF	; 255
+  44:	a7 01       	movw	r20, r14
+  46:	96 01       	movw	r18, r12
+  48:	09 95       	icall
+  4a:	1f 91       	pop	r17
+  4c:	0f 91       	pop	r16
+  4e:	ff 90       	pop	r15
+  50:	ef 90       	pop	r14
+  52:	df 90       	pop	r13
+  54:	cf 90       	pop	r12
+  56:	08 95       	ret
+
+00000058 <_ZN10GprsSIM9005closeEv>:
+  58:	fc 01       	movw	r30, r24
+  5a:	a0 81       	ld	r26, Z
+  5c:	b1 81       	ldd	r27, Z+1	; 0x01
+  5e:	50 96       	adiw	r26, 0x10	; 16
+  60:	2d 91       	ld	r18, X+
+  62:	3c 91       	ld	r19, X
+  64:	51 97       	sbiw	r26, 0x11	; 17
+  66:	6f ef       	ldi	r22, 0xFF	; 255
+  68:	f9 01       	movw	r30, r18
+  6a:	09 95       	icall
+  6c:	08 95       	ret
+
+0000006e <_ZN10GprsSIM9004sendEPhj>:
+  6e:	08 95       	ret
+
+00000070 <_ZN10GprsSIM90011setUpServerEhj>:
+  70:	08 95       	ret
+
+00000072 <_ZN10GprsSIM9008shutdownEv>:
+  72:	08 95       	ret
+
+00000074 <_ZN10GprsSIM9004sendEcPhj>:
+  74:	fc 01       	movw	r30, r24
+  76:	82 81       	ldd	r24, Z+2	; 0x02
+  78:	93 81       	ldd	r25, Z+3	; 0x03
+  7a:	ba 01       	movw	r22, r20
+  7c:	a9 01       	movw	r20, r18
+  7e:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+  82:	08 95       	ret
+
+00000084 <_ZN5Print5writeEPKc>:
+  84:	cf 93       	push	r28
+  86:	df 93       	push	r29
+  88:	ec 01       	movw	r28, r24
+  8a:	61 15       	cp	r22, r1
+  8c:	71 05       	cpc	r23, r1
+  8e:	01 f4       	brne	.+0      	; 0x90 <_ZN5Print5writeEPKc+0xc>
+  90:	20 e0       	ldi	r18, 0x00	; 0
+  92:	30 e0       	ldi	r19, 0x00	; 0
+  94:	00 c0       	rjmp	.+0      	; 0x96 <_ZN5Print5writeEPKc+0x12>
+  96:	db 01       	movw	r26, r22
+  98:	0d 90       	ld	r0, X+
+  9a:	00 20       	and	r0, r0
+  9c:	01 f4       	brne	.+0      	; 0x9e <_ZN5Print5writeEPKc+0x1a>
+  9e:	11 97       	sbiw	r26, 0x01	; 1
+  a0:	a6 1b       	sub	r26, r22
+  a2:	b7 0b       	sbc	r27, r23
+  a4:	e8 81       	ld	r30, Y
+  a6:	f9 81       	ldd	r31, Y+1	; 0x01
+  a8:	02 80       	ldd	r0, Z+2	; 0x02
+  aa:	f3 81       	ldd	r31, Z+3	; 0x03
+  ac:	e0 2d       	mov	r30, r0
+  ae:	ad 01       	movw	r20, r26
+  b0:	09 95       	icall
+  b2:	9c 01       	movw	r18, r24
+  b4:	c9 01       	movw	r24, r18
+  b6:	df 91       	pop	r29
+  b8:	cf 91       	pop	r28
+  ba:	08 95       	ret
+
+000000bc <_ZN10GprsSIM9007resolveEPKcPhj>:
+  bc:	ef 92       	push	r14
+  be:	ff 92       	push	r15
+  c0:	0f 93       	push	r16
+  c2:	1f 93       	push	r17
+  c4:	8c 01       	movw	r16, r24
+  c6:	7b 01       	movw	r14, r22
+  c8:	fc 01       	movw	r30, r24
+  ca:	82 81       	ldd	r24, Z+2	; 0x02
+  cc:	93 81       	ldd	r25, Z+3	; 0x03
+  ce:	60 e0       	ldi	r22, 0x00	; 0
+  d0:	70 e0       	ldi	r23, 0x00	; 0
+  d2:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+  d6:	f8 01       	movw	r30, r16
+  d8:	82 81       	ldd	r24, Z+2	; 0x02
+  da:	93 81       	ldd	r25, Z+3	; 0x03
+  dc:	b7 01       	movw	r22, r14
+  de:	40 e0       	ldi	r20, 0x00	; 0
+  e0:	50 e0       	ldi	r21, 0x00	; 0
+  e2:	20 e0       	ldi	r18, 0x00	; 0
+  e4:	38 ee       	ldi	r19, 0xE8	; 232
+  e6:	e3 2e       	mov	r14, r19
+  e8:	33 e0       	ldi	r19, 0x03	; 3
+  ea:	f3 2e       	mov	r15, r19
+  ec:	01 2d       	mov	r16, r1
+  ee:	11 2d       	mov	r17, r1
+  f0:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+  f4:	91 e0       	ldi	r25, 0x01	; 1
+  f6:	89 27       	eor	r24, r25
+  f8:	1f 91       	pop	r17
+  fa:	0f 91       	pop	r16
+  fc:	ff 90       	pop	r15
+  fe:	ef 90       	pop	r14
+ 100:	08 95       	ret
+
+00000102 <_ZN10GprsSIM9005closeEc>:
+ 102:	ef 92       	push	r14
+ 104:	ff 92       	push	r15
+ 106:	0f 93       	push	r16
+ 108:	1f 93       	push	r17
+ 10a:	8c 01       	movw	r16, r24
+ 10c:	f6 2e       	mov	r15, r22
+ 10e:	dc 01       	movw	r26, r24
+ 110:	12 96       	adiw	r26, 0x02	; 2
+ 112:	8d 91       	ld	r24, X+
+ 114:	9c 91       	ld	r25, X
+ 116:	13 97       	sbiw	r26, 0x03	; 3
+ 118:	60 e0       	ldi	r22, 0x00	; 0
+ 11a:	70 e0       	ldi	r23, 0x00	; 0
+ 11c:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 120:	d8 01       	movw	r26, r16
+ 122:	12 96       	adiw	r26, 0x02	; 2
+ 124:	ed 91       	ld	r30, X+
+ 126:	fc 91       	ld	r31, X
+ 128:	13 97       	sbiw	r26, 0x03	; 3
+ 12a:	a0 81       	ld	r26, Z
+ 12c:	b1 81       	ldd	r27, Z+1	; 0x01
+ 12e:	2d 91       	ld	r18, X+
+ 130:	3c 91       	ld	r19, X
+ 132:	cf 01       	movw	r24, r30
+ 134:	6c e2       	ldi	r22, 0x2C	; 44
+ 136:	f9 01       	movw	r30, r18
+ 138:	09 95       	icall
+ 13a:	d8 01       	movw	r26, r16
+ 13c:	12 96       	adiw	r26, 0x02	; 2
+ 13e:	ed 91       	ld	r30, X+
+ 140:	fc 91       	ld	r31, X
+ 142:	13 97       	sbiw	r26, 0x03	; 3
+ 144:	a0 81       	ld	r26, Z
+ 146:	b1 81       	ldd	r27, Z+1	; 0x01
+ 148:	80 e3       	ldi	r24, 0x30	; 48
+ 14a:	f8 0e       	add	r15, r24
+ 14c:	2d 91       	ld	r18, X+
+ 14e:	3c 91       	ld	r19, X
+ 150:	cf 01       	movw	r24, r30
+ 152:	6f 2d       	mov	r22, r15
+ 154:	f9 01       	movw	r30, r18
+ 156:	09 95       	icall
+ 158:	d8 01       	movw	r26, r16
+ 15a:	12 96       	adiw	r26, 0x02	; 2
+ 15c:	8d 91       	ld	r24, X+
+ 15e:	9c 91       	ld	r25, X
+ 160:	13 97       	sbiw	r26, 0x03	; 3
+ 162:	60 e0       	ldi	r22, 0x00	; 0
+ 164:	70 e0       	ldi	r23, 0x00	; 0
+ 166:	40 e0       	ldi	r20, 0x00	; 0
+ 168:	50 e0       	ldi	r21, 0x00	; 0
+ 16a:	20 e0       	ldi	r18, 0x00	; 0
+ 16c:	e8 ee       	ldi	r30, 0xE8	; 232
+ 16e:	ee 2e       	mov	r14, r30
+ 170:	e3 e0       	ldi	r30, 0x03	; 3
+ 172:	fe 2e       	mov	r15, r30
+ 174:	01 2d       	mov	r16, r1
+ 176:	11 2d       	mov	r17, r1
+ 178:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 17c:	91 e0       	ldi	r25, 0x01	; 1
+ 17e:	89 27       	eor	r24, r25
+ 180:	1f 91       	pop	r17
+ 182:	0f 91       	pop	r16
+ 184:	ff 90       	pop	r15
+ 186:	ef 90       	pop	r14
+ 188:	08 95       	ret
+
+0000018a <_ZN10GprsSIM90012configureDnsEPKcS1_>:
+ 18a:	cf 92       	push	r12
+ 18c:	df 92       	push	r13
+ 18e:	ef 92       	push	r14
+ 190:	ff 92       	push	r15
+ 192:	0f 93       	push	r16
+ 194:	1f 93       	push	r17
+ 196:	8c 01       	movw	r16, r24
+ 198:	7b 01       	movw	r14, r22
+ 19a:	6a 01       	movw	r12, r20
+ 19c:	fc 01       	movw	r30, r24
+ 19e:	82 81       	ldd	r24, Z+2	; 0x02
+ 1a0:	93 81       	ldd	r25, Z+3	; 0x03
+ 1a2:	60 e0       	ldi	r22, 0x00	; 0
+ 1a4:	70 e0       	ldi	r23, 0x00	; 0
+ 1a6:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 1aa:	f8 01       	movw	r30, r16
+ 1ac:	82 81       	ldd	r24, Z+2	; 0x02
+ 1ae:	93 81       	ldd	r25, Z+3	; 0x03
+ 1b0:	b7 01       	movw	r22, r14
+ 1b2:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 1b6:	f8 01       	movw	r30, r16
+ 1b8:	82 81       	ldd	r24, Z+2	; 0x02
+ 1ba:	93 81       	ldd	r25, Z+3	; 0x03
+ 1bc:	60 e0       	ldi	r22, 0x00	; 0
+ 1be:	70 e0       	ldi	r23, 0x00	; 0
+ 1c0:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 1c4:	f8 01       	movw	r30, r16
+ 1c6:	82 81       	ldd	r24, Z+2	; 0x02
+ 1c8:	93 81       	ldd	r25, Z+3	; 0x03
+ 1ca:	b6 01       	movw	r22, r12
+ 1cc:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 1d0:	f8 01       	movw	r30, r16
+ 1d2:	82 81       	ldd	r24, Z+2	; 0x02
+ 1d4:	93 81       	ldd	r25, Z+3	; 0x03
+ 1d6:	60 e0       	ldi	r22, 0x00	; 0
+ 1d8:	70 e0       	ldi	r23, 0x00	; 0
+ 1da:	40 e0       	ldi	r20, 0x00	; 0
+ 1dc:	50 e0       	ldi	r21, 0x00	; 0
+ 1de:	20 e0       	ldi	r18, 0x00	; 0
+ 1e0:	f8 ee       	ldi	r31, 0xE8	; 232
+ 1e2:	ef 2e       	mov	r14, r31
+ 1e4:	f3 e0       	ldi	r31, 0x03	; 3
+ 1e6:	ff 2e       	mov	r15, r31
+ 1e8:	01 2d       	mov	r16, r1
+ 1ea:	11 2d       	mov	r17, r1
+ 1ec:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 1f0:	91 e0       	ldi	r25, 0x01	; 1
+ 1f2:	89 27       	eor	r24, r25
+ 1f4:	1f 91       	pop	r17
+ 1f6:	0f 91       	pop	r16
+ 1f8:	ff 90       	pop	r15
+ 1fa:	ef 90       	pop	r14
+ 1fc:	df 90       	pop	r13
+ 1fe:	cf 90       	pop	r12
+ 200:	08 95       	ret
+
+00000202 <_ZN10GprsSIM9009startTaskEPKcS1_S1_>:
+ 202:	af 92       	push	r10
+ 204:	bf 92       	push	r11
+ 206:	cf 92       	push	r12
+ 208:	df 92       	push	r13
+ 20a:	ef 92       	push	r14
+ 20c:	ff 92       	push	r15
+ 20e:	0f 93       	push	r16
+ 210:	1f 93       	push	r17
+ 212:	8c 01       	movw	r16, r24
+ 214:	7b 01       	movw	r14, r22
+ 216:	6a 01       	movw	r12, r20
+ 218:	59 01       	movw	r10, r18
+ 21a:	fc 01       	movw	r30, r24
+ 21c:	82 81       	ldd	r24, Z+2	; 0x02
+ 21e:	93 81       	ldd	r25, Z+3	; 0x03
+ 220:	60 e0       	ldi	r22, 0x00	; 0
+ 222:	70 e0       	ldi	r23, 0x00	; 0
+ 224:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 228:	f8 01       	movw	r30, r16
+ 22a:	82 81       	ldd	r24, Z+2	; 0x02
+ 22c:	93 81       	ldd	r25, Z+3	; 0x03
+ 22e:	b7 01       	movw	r22, r14
+ 230:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 234:	b0 e0       	ldi	r27, 0x00	; 0
+ 236:	eb 2e       	mov	r14, r27
+ 238:	b0 e0       	ldi	r27, 0x00	; 0
+ 23a:	fb 2e       	mov	r15, r27
+ 23c:	f8 01       	movw	r30, r16
+ 23e:	82 81       	ldd	r24, Z+2	; 0x02
+ 240:	93 81       	ldd	r25, Z+3	; 0x03
+ 242:	b7 01       	movw	r22, r14
+ 244:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 248:	f8 01       	movw	r30, r16
+ 24a:	82 81       	ldd	r24, Z+2	; 0x02
+ 24c:	93 81       	ldd	r25, Z+3	; 0x03
+ 24e:	b6 01       	movw	r22, r12
+ 250:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 254:	f8 01       	movw	r30, r16
+ 256:	82 81       	ldd	r24, Z+2	; 0x02
+ 258:	93 81       	ldd	r25, Z+3	; 0x03
+ 25a:	b7 01       	movw	r22, r14
+ 25c:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 260:	f8 01       	movw	r30, r16
+ 262:	82 81       	ldd	r24, Z+2	; 0x02
+ 264:	93 81       	ldd	r25, Z+3	; 0x03
+ 266:	b5 01       	movw	r22, r10
+ 268:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 26c:	f8 01       	movw	r30, r16
+ 26e:	82 81       	ldd	r24, Z+2	; 0x02
+ 270:	93 81       	ldd	r25, Z+3	; 0x03
+ 272:	60 e0       	ldi	r22, 0x00	; 0
+ 274:	70 e0       	ldi	r23, 0x00	; 0
+ 276:	40 e0       	ldi	r20, 0x00	; 0
+ 278:	50 e0       	ldi	r21, 0x00	; 0
+ 27a:	20 e0       	ldi	r18, 0x00	; 0
+ 27c:	a8 ee       	ldi	r26, 0xE8	; 232
+ 27e:	ea 2e       	mov	r14, r26
+ 280:	a3 e0       	ldi	r26, 0x03	; 3
+ 282:	fa 2e       	mov	r15, r26
+ 284:	01 2d       	mov	r16, r1
+ 286:	11 2d       	mov	r17, r1
+ 288:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 28c:	91 e0       	ldi	r25, 0x01	; 1
+ 28e:	89 27       	eor	r24, r25
+ 290:	1f 91       	pop	r17
+ 292:	0f 91       	pop	r16
+ 294:	ff 90       	pop	r15
+ 296:	ef 90       	pop	r14
+ 298:	df 90       	pop	r13
+ 29a:	cf 90       	pop	r12
+ 29c:	bf 90       	pop	r11
+ 29e:	af 90       	pop	r10
+ 2a0:	08 95       	ret
+
+000002a2 <_ZN10GprsSIM90014useMultiplexerEb>:
+ 2a2:	ef 92       	push	r14
+ 2a4:	ff 92       	push	r15
+ 2a6:	0f 93       	push	r16
+ 2a8:	1f 93       	push	r17
+ 2aa:	df 93       	push	r29
+ 2ac:	cf 93       	push	r28
+ 2ae:	cd b7       	in	r28, 0x3d	; 61
+ 2b0:	de b7       	in	r29, 0x3e	; 62
+ 2b2:	2a 97       	sbiw	r28, 0x0a	; 10
+ 2b4:	0f b6       	in	r0, 0x3f	; 63
+ 2b6:	f8 94       	cli
+ 2b8:	de bf       	out	0x3e, r29	; 62
+ 2ba:	0f be       	out	0x3f, r0	; 63
+ 2bc:	cd bf       	out	0x3d, r28	; 61
+ 2be:	9c 01       	movw	r18, r24
+ 2c0:	de 01       	movw	r26, r28
+ 2c2:	11 96       	adiw	r26, 0x01	; 1
+ 2c4:	e0 e0       	ldi	r30, 0x00	; 0
+ 2c6:	f0 e0       	ldi	r31, 0x00	; 0
+ 2c8:	8a e0       	ldi	r24, 0x0A	; 10
+ 2ca:	01 90       	ld	r0, Z+
+ 2cc:	0d 92       	st	X+, r0
+ 2ce:	81 50       	subi	r24, 0x01	; 1
+ 2d0:	01 f4       	brne	.+0      	; 0x2d2 <_ZN10GprsSIM90014useMultiplexerEb+0x30>
+ 2d2:	66 23       	and	r22, r22
+ 2d4:	01 f0       	breq	.+0      	; 0x2d6 <_ZN10GprsSIM90014useMultiplexerEb+0x34>
+ 2d6:	81 e3       	ldi	r24, 0x31	; 49
+ 2d8:	89 87       	std	Y+9, r24	; 0x09
+ 2da:	f9 01       	movw	r30, r18
+ 2dc:	64 83       	std	Z+4, r22	; 0x04
+ 2de:	82 81       	ldd	r24, Z+2	; 0x02
+ 2e0:	93 81       	ldd	r25, Z+3	; 0x03
+ 2e2:	be 01       	movw	r22, r28
+ 2e4:	6f 5f       	subi	r22, 0xFF	; 255
+ 2e6:	7f 4f       	sbci	r23, 0xFF	; 255
+ 2e8:	40 e0       	ldi	r20, 0x00	; 0
+ 2ea:	50 e0       	ldi	r21, 0x00	; 0
+ 2ec:	21 e0       	ldi	r18, 0x01	; 1
+ 2ee:	18 ee       	ldi	r17, 0xE8	; 232
+ 2f0:	e1 2e       	mov	r14, r17
+ 2f2:	13 e0       	ldi	r17, 0x03	; 3
+ 2f4:	f1 2e       	mov	r15, r17
+ 2f6:	01 2d       	mov	r16, r1
+ 2f8:	11 2d       	mov	r17, r1
+ 2fa:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 2fe:	2a 96       	adiw	r28, 0x0a	; 10
+ 300:	0f b6       	in	r0, 0x3f	; 63
+ 302:	f8 94       	cli
+ 304:	de bf       	out	0x3e, r29	; 62
+ 306:	0f be       	out	0x3f, r0	; 63
+ 308:	cd bf       	out	0x3d, r28	; 61
+ 30a:	cf 91       	pop	r28
+ 30c:	df 91       	pop	r29
+ 30e:	1f 91       	pop	r17
+ 310:	0f 91       	pop	r16
+ 312:	ff 90       	pop	r15
+ 314:	ef 90       	pop	r14
+ 316:	08 95       	ret
+
+00000318 <_ZN10GprsSIM9007bringUpEv>:
+ 318:	ef 92       	push	r14
+ 31a:	ff 92       	push	r15
+ 31c:	0f 93       	push	r16
+ 31e:	1f 93       	push	r17
+ 320:	fc 01       	movw	r30, r24
+ 322:	82 81       	ldd	r24, Z+2	; 0x02
+ 324:	93 81       	ldd	r25, Z+3	; 0x03
+ 326:	60 e0       	ldi	r22, 0x00	; 0
+ 328:	70 e0       	ldi	r23, 0x00	; 0
+ 32a:	40 e0       	ldi	r20, 0x00	; 0
+ 32c:	50 e0       	ldi	r21, 0x00	; 0
+ 32e:	21 e0       	ldi	r18, 0x01	; 1
+ 330:	00 e2       	ldi	r16, 0x20	; 32
+ 332:	e0 2e       	mov	r14, r16
+ 334:	0e e4       	ldi	r16, 0x4E	; 78
+ 336:	f0 2e       	mov	r15, r16
+ 338:	01 2d       	mov	r16, r1
+ 33a:	11 2d       	mov	r17, r1
+ 33c:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 340:	91 e0       	ldi	r25, 0x01	; 1
+ 342:	89 27       	eor	r24, r25
+ 344:	1f 91       	pop	r17
+ 346:	0f 91       	pop	r16
+ 348:	ff 90       	pop	r15
+ 34a:	ef 90       	pop	r14
+ 34c:	08 95       	ret
+
+0000034e <_ZN10GprsSIM9004openEcPKcS1_j>:
+ 34e:	8f 92       	push	r8
+ 350:	9f 92       	push	r9
+ 352:	af 92       	push	r10
+ 354:	bf 92       	push	r11
+ 356:	cf 92       	push	r12
+ 358:	df 92       	push	r13
+ 35a:	ef 92       	push	r14
+ 35c:	ff 92       	push	r15
+ 35e:	0f 93       	push	r16
+ 360:	1f 93       	push	r17
+ 362:	7c 01       	movw	r14, r24
+ 364:	d6 2e       	mov	r13, r22
+ 366:	5a 01       	movw	r10, r20
+ 368:	49 01       	movw	r8, r18
+ 36a:	dc 01       	movw	r26, r24
+ 36c:	12 96       	adiw	r26, 0x02	; 2
+ 36e:	8d 91       	ld	r24, X+
+ 370:	9c 91       	ld	r25, X
+ 372:	13 97       	sbiw	r26, 0x03	; 3
+ 374:	60 e0       	ldi	r22, 0x00	; 0
+ 376:	70 e0       	ldi	r23, 0x00	; 0
+ 378:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 37c:	d7 01       	movw	r26, r14
+ 37e:	12 96       	adiw	r26, 0x02	; 2
+ 380:	ed 91       	ld	r30, X+
+ 382:	fc 91       	ld	r31, X
+ 384:	13 97       	sbiw	r26, 0x03	; 3
+ 386:	a0 81       	ld	r26, Z
+ 388:	b1 81       	ldd	r27, Z+1	; 0x01
+ 38a:	80 e3       	ldi	r24, 0x30	; 48
+ 38c:	d8 0e       	add	r13, r24
+ 38e:	2d 91       	ld	r18, X+
+ 390:	3c 91       	ld	r19, X
+ 392:	cf 01       	movw	r24, r30
+ 394:	6d 2d       	mov	r22, r13
+ 396:	f9 01       	movw	r30, r18
+ 398:	09 95       	icall
+ 39a:	d7 01       	movw	r26, r14
+ 39c:	12 96       	adiw	r26, 0x02	; 2
+ 39e:	ed 91       	ld	r30, X+
+ 3a0:	fc 91       	ld	r31, X
+ 3a2:	13 97       	sbiw	r26, 0x03	; 3
+ 3a4:	a0 81       	ld	r26, Z
+ 3a6:	b1 81       	ldd	r27, Z+1	; 0x01
+ 3a8:	2d 91       	ld	r18, X+
+ 3aa:	3c 91       	ld	r19, X
+ 3ac:	cf 01       	movw	r24, r30
+ 3ae:	6c e2       	ldi	r22, 0x2C	; 44
+ 3b0:	f9 01       	movw	r30, r18
+ 3b2:	09 95       	icall
+ 3b4:	d7 01       	movw	r26, r14
+ 3b6:	12 96       	adiw	r26, 0x02	; 2
+ 3b8:	ed 91       	ld	r30, X+
+ 3ba:	fc 91       	ld	r31, X
+ 3bc:	13 97       	sbiw	r26, 0x03	; 3
+ 3be:	a0 81       	ld	r26, Z
+ 3c0:	b1 81       	ldd	r27, Z+1	; 0x01
+ 3c2:	2d 91       	ld	r18, X+
+ 3c4:	3c 91       	ld	r19, X
+ 3c6:	cf 01       	movw	r24, r30
+ 3c8:	62 e2       	ldi	r22, 0x22	; 34
+ 3ca:	f9 01       	movw	r30, r18
+ 3cc:	09 95       	icall
+ 3ce:	f7 01       	movw	r30, r14
+ 3d0:	82 81       	ldd	r24, Z+2	; 0x02
+ 3d2:	93 81       	ldd	r25, Z+3	; 0x03
+ 3d4:	b5 01       	movw	r22, r10
+ 3d6:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 3da:	40 e0       	ldi	r20, 0x00	; 0
+ 3dc:	c4 2e       	mov	r12, r20
+ 3de:	40 e0       	ldi	r20, 0x00	; 0
+ 3e0:	d4 2e       	mov	r13, r20
+ 3e2:	d7 01       	movw	r26, r14
+ 3e4:	12 96       	adiw	r26, 0x02	; 2
+ 3e6:	8d 91       	ld	r24, X+
+ 3e8:	9c 91       	ld	r25, X
+ 3ea:	13 97       	sbiw	r26, 0x03	; 3
+ 3ec:	b6 01       	movw	r22, r12
+ 3ee:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 3f2:	f7 01       	movw	r30, r14
+ 3f4:	82 81       	ldd	r24, Z+2	; 0x02
+ 3f6:	93 81       	ldd	r25, Z+3	; 0x03
+ 3f8:	b4 01       	movw	r22, r8
+ 3fa:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 3fe:	d7 01       	movw	r26, r14
+ 400:	12 96       	adiw	r26, 0x02	; 2
+ 402:	8d 91       	ld	r24, X+
+ 404:	9c 91       	ld	r25, X
+ 406:	13 97       	sbiw	r26, 0x03	; 3
+ 408:	b6 01       	movw	r22, r12
+ 40a:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 40e:	f7 01       	movw	r30, r14
+ 410:	82 81       	ldd	r24, Z+2	; 0x02
+ 412:	93 81       	ldd	r25, Z+3	; 0x03
+ 414:	b8 01       	movw	r22, r16
+ 416:	4a e0       	ldi	r20, 0x0A	; 10
+ 418:	50 e0       	ldi	r21, 0x00	; 0
+ 41a:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 41e:	d7 01       	movw	r26, r14
+ 420:	12 96       	adiw	r26, 0x02	; 2
+ 422:	8d 91       	ld	r24, X+
+ 424:	9c 91       	ld	r25, X
+ 426:	13 97       	sbiw	r26, 0x03	; 3
+ 428:	60 e0       	ldi	r22, 0x00	; 0
+ 42a:	70 e0       	ldi	r23, 0x00	; 0
+ 42c:	40 e0       	ldi	r20, 0x00	; 0
+ 42e:	50 e0       	ldi	r21, 0x00	; 0
+ 430:	20 e0       	ldi	r18, 0x00	; 0
+ 432:	38 ee       	ldi	r19, 0xE8	; 232
+ 434:	e3 2e       	mov	r14, r19
+ 436:	33 e0       	ldi	r19, 0x03	; 3
+ 438:	f3 2e       	mov	r15, r19
+ 43a:	01 2d       	mov	r16, r1
+ 43c:	11 2d       	mov	r17, r1
+ 43e:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 442:	91 e0       	ldi	r25, 0x01	; 1
+ 444:	89 27       	eor	r24, r25
+ 446:	1f 91       	pop	r17
+ 448:	0f 91       	pop	r16
+ 44a:	ff 90       	pop	r15
+ 44c:	ef 90       	pop	r14
+ 44e:	df 90       	pop	r13
+ 450:	cf 90       	pop	r12
+ 452:	bf 90       	pop	r11
+ 454:	af 90       	pop	r10
+ 456:	9f 90       	pop	r9
+ 458:	8f 90       	pop	r8
+ 45a:	08 95       	ret
+
+0000045c <_ZN10GprsSIM9006statusEv>:
+ 45c:	0f 93       	push	r16
+ 45e:	1f 93       	push	r17
+ 460:	fc 01       	movw	r30, r24
+ 462:	82 81       	ldd	r24, Z+2	; 0x02
+ 464:	93 81       	ldd	r25, Z+3	; 0x03
+ 466:	60 e0       	ldi	r22, 0x00	; 0
+ 468:	70 e0       	ldi	r23, 0x00	; 0
+ 46a:	41 e0       	ldi	r20, 0x01	; 1
+ 46c:	08 ee       	ldi	r16, 0xE8	; 232
+ 46e:	13 e0       	ldi	r17, 0x03	; 3
+ 470:	20 e0       	ldi	r18, 0x00	; 0
+ 472:	30 e0       	ldi	r19, 0x00	; 0
+ 474:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 478:	1f 91       	pop	r17
+ 47a:	0f 91       	pop	r16
+ 47c:	08 95       	ret
+
+0000047e <_ZN10GprsSIM9008obtainIpEPh>:
+ 47e:	af 92       	push	r10
+ 480:	bf 92       	push	r11
+ 482:	cf 92       	push	r12
+ 484:	df 92       	push	r13
+ 486:	ef 92       	push	r14
+ 488:	ff 92       	push	r15
+ 48a:	0f 93       	push	r16
+ 48c:	1f 93       	push	r17
+ 48e:	df 93       	push	r29
+ 490:	cf 93       	push	r28
+ 492:	00 d0       	rcall	.+0      	; 0x494 <_ZN10GprsSIM9008obtainIpEPh+0x16>
+ 494:	00 d0       	rcall	.+0      	; 0x496 <_ZN10GprsSIM9008obtainIpEPh+0x18>
+ 496:	cd b7       	in	r28, 0x3d	; 61
+ 498:	de b7       	in	r29, 0x3e	; 62
+ 49a:	7c 01       	movw	r14, r24
+ 49c:	6b 01       	movw	r12, r22
+ 49e:	dc 01       	movw	r26, r24
+ 4a0:	12 96       	adiw	r26, 0x02	; 2
+ 4a2:	8d 91       	ld	r24, X+
+ 4a4:	9c 91       	ld	r25, X
+ 4a6:	13 97       	sbiw	r26, 0x03	; 3
+ 4a8:	60 e0       	ldi	r22, 0x00	; 0
+ 4aa:	70 e0       	ldi	r23, 0x00	; 0
+ 4ac:	41 e0       	ldi	r20, 0x01	; 1
+ 4ae:	08 ee       	ldi	r16, 0xE8	; 232
+ 4b0:	13 e0       	ldi	r17, 0x03	; 3
+ 4b2:	20 e0       	ldi	r18, 0x00	; 0
+ 4b4:	30 e0       	ldi	r19, 0x00	; 0
+ 4b6:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 4ba:	f7 01       	movw	r30, r14
+ 4bc:	82 81       	ldd	r24, Z+2	; 0x02
+ 4be:	93 81       	ldd	r25, Z+3	; 0x03
+ 4c0:	60 e0       	ldi	r22, 0x00	; 0
+ 4c2:	70 e0       	ldi	r23, 0x00	; 0
+ 4c4:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 4c8:	88 23       	and	r24, r24
+ 4ca:	01 f0       	breq	.+0      	; 0x4cc <_ZN10GprsSIM9008obtainIpEPh+0x4e>
+ 4cc:	00 c0       	rjmp	.+0      	; 0x4ce <_ZN10GprsSIM9008obtainIpEPh+0x50>
+ 4ce:	19 82       	std	Y+1, r1	; 0x01
+ 4d0:	1a 82       	std	Y+2, r1	; 0x02
+ 4d2:	1b 82       	std	Y+3, r1	; 0x03
+ 4d4:	1c 82       	std	Y+4, r1	; 0x04
+ 4d6:	d7 01       	movw	r26, r14
+ 4d8:	12 96       	adiw	r26, 0x02	; 2
+ 4da:	ed 91       	ld	r30, X+
+ 4dc:	fc 91       	ld	r31, X
+ 4de:	13 97       	sbiw	r26, 0x03	; 3
+ 4e0:	8f 01       	movw	r16, r30
+ 4e2:	04 5e       	subi	r16, 0xE4	; 228
+ 4e4:	1f 4f       	sbci	r17, 0xFF	; 255
+ 4e6:	e4 5e       	subi	r30, 0xE4	; 228
+ 4e8:	fe 4f       	sbci	r31, 0xFE	; 254
+ 4ea:	11 83       	std	Z+1, r17	; 0x01
+ 4ec:	00 83       	st	Z, r16
+ 4ee:	ff 24       	eor	r15, r15
+ 4f0:	30 e0       	ldi	r19, 0x00	; 0
+ 4f2:	5e 01       	movw	r10, r28
+ 4f4:	08 94       	sec
+ 4f6:	a1 1c       	adc	r10, r1
+ 4f8:	b1 1c       	adc	r11, r1
+ 4fa:	00 c0       	rjmp	.+0      	; 0x4fc <_ZN10GprsSIM9008obtainIpEPh+0x7e>
+ 4fc:	82 2f       	mov	r24, r18
+ 4fe:	80 53       	subi	r24, 0x30	; 48
+ 500:	8a 30       	cpi	r24, 0x0A	; 10
+ 502:	00 f4       	brcc	.+0      	; 0x504 <_ZN10GprsSIM9008obtainIpEPh+0x86>
+ 504:	83 2f       	mov	r24, r19
+ 506:	63 e0       	ldi	r22, 0x03	; 3
+ 508:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 50c:	f5 01       	movw	r30, r10
+ 50e:	e9 0f       	add	r30, r25
+ 510:	f1 1d       	adc	r31, r1
+ 512:	20 83       	st	Z, r18
+ 514:	3f 5f       	subi	r19, 0xFF	; 255
+ 516:	f8 01       	movw	r30, r16
+ 518:	80 81       	ld	r24, Z
+ 51a:	8e 32       	cpi	r24, 0x2E	; 46
+ 51c:	01 f4       	brne	.+0      	; 0x51e <_ZN10GprsSIM9008obtainIpEPh+0xa0>
+ 51e:	c5 01       	movw	r24, r10
+ 520:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 524:	d6 01       	movw	r26, r12
+ 526:	8d 93       	st	X+, r24
+ 528:	6d 01       	movw	r12, r26
+ 52a:	19 82       	std	Y+1, r1	; 0x01
+ 52c:	1a 82       	std	Y+2, r1	; 0x02
+ 52e:	1b 82       	std	Y+3, r1	; 0x03
+ 530:	1c 82       	std	Y+4, r1	; 0x04
+ 532:	f3 94       	inc	r15
+ 534:	30 e0       	ldi	r19, 0x00	; 0
+ 536:	0f 5f       	subi	r16, 0xFF	; 255
+ 538:	1f 4f       	sbci	r17, 0xFF	; 255
+ 53a:	f8 01       	movw	r30, r16
+ 53c:	20 81       	ld	r18, Z
+ 53e:	22 23       	and	r18, r18
+ 540:	01 f0       	breq	.+0      	; 0x542 <_ZN10GprsSIM9008obtainIpEPh+0xc4>
+ 542:	f3 e0       	ldi	r31, 0x03	; 3
+ 544:	ff 15       	cp	r31, r15
+ 546:	00 f4       	brcc	.+0      	; 0x548 <_ZN10GprsSIM9008obtainIpEPh+0xca>
+ 548:	1f 2d       	mov	r17, r15
+ 54a:	33 23       	and	r19, r19
+ 54c:	01 f0       	breq	.+0      	; 0x54e <_ZN10GprsSIM9008obtainIpEPh+0xd0>
+ 54e:	1f 5f       	subi	r17, 0xFF	; 255
+ 550:	ce 01       	movw	r24, r28
+ 552:	01 96       	adiw	r24, 0x01	; 1
+ 554:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 558:	d6 01       	movw	r26, r12
+ 55a:	8c 93       	st	X, r24
+ 55c:	80 e0       	ldi	r24, 0x00	; 0
+ 55e:	14 30       	cpi	r17, 0x04	; 4
+ 560:	01 f0       	breq	.+0      	; 0x562 <_ZN10GprsSIM9008obtainIpEPh+0xe4>
+ 562:	81 e0       	ldi	r24, 0x01	; 1
+ 564:	0f 90       	pop	r0
+ 566:	0f 90       	pop	r0
+ 568:	0f 90       	pop	r0
+ 56a:	0f 90       	pop	r0
+ 56c:	cf 91       	pop	r28
+ 56e:	df 91       	pop	r29
+ 570:	1f 91       	pop	r17
+ 572:	0f 91       	pop	r16
+ 574:	ff 90       	pop	r15
+ 576:	ef 90       	pop	r14
+ 578:	df 90       	pop	r13
+ 57a:	cf 90       	pop	r12
+ 57c:	bf 90       	pop	r11
+ 57e:	af 90       	pop	r10
+ 580:	08 95       	ret
+
+00000582 <_ZN10GprsSIM9005beginEl>:
+ 582:	0f 93       	push	r16
+ 584:	1f 93       	push	r17
+ 586:	8c 01       	movw	r16, r24
+ 588:	fc 01       	movw	r30, r24
+ 58a:	82 81       	ldd	r24, Z+2	; 0x02
+ 58c:	93 81       	ldd	r25, Z+3	; 0x03
+ 58e:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 592:	f8 01       	movw	r30, r16
+ 594:	82 81       	ldd	r24, Z+2	; 0x02
+ 596:	93 81       	ldd	r25, Z+3	; 0x03
+ 598:	60 e0       	ldi	r22, 0x00	; 0
+ 59a:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 59e:	f8 01       	movw	r30, r16
+ 5a0:	82 81       	ldd	r24, Z+2	; 0x02
+ 5a2:	93 81       	ldd	r25, Z+3	; 0x03
+ 5a4:	60 e0       	ldi	r22, 0x00	; 0
+ 5a6:	70 e0       	ldi	r23, 0x00	; 0
+ 5a8:	41 e0       	ldi	r20, 0x01	; 1
+ 5aa:	08 ee       	ldi	r16, 0xE8	; 232
+ 5ac:	13 e0       	ldi	r17, 0x03	; 3
+ 5ae:	20 e0       	ldi	r18, 0x00	; 0
+ 5b0:	30 e0       	ldi	r19, 0x00	; 0
+ 5b2:	0e 94 00 00 	call	0	; 0x0 <_ZN10GprsSIM900C2EP6SIM900>
+ 5b6:	1f 91       	pop	r17
+ 5b8:	0f 91       	pop	r16
+ 5ba:	08 95       	ret
+
+Gprs.o:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000000  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000000  00000000  00000000  00000034  2**0
+                  ALLOC
+
+CallSIM900.o:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000002c  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  1 .data         00000020  00000000  00000000  00000060  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, DATA
+  2 .bss          00000000  00000000  00000000  00000080  2**0
+                  ALLOC
+Disassembly of section .text:
+
+00000000 <_ZN10CallSIM900C2EP6SIM900>:
+   0:	fc 01       	movw	r30, r24
+   2:	80 e0       	ldi	r24, 0x00	; 0
+   4:	90 e0       	ldi	r25, 0x00	; 0
+   6:	91 83       	std	Z+1, r25	; 0x01
+   8:	80 83       	st	Z, r24
+   a:	73 83       	std	Z+3, r23	; 0x03
+   c:	62 83       	std	Z+2, r22	; 0x02
+   e:	08 95       	ret
+
+00000010 <_ZN10CallSIM900C1EP6SIM900>:
+  10:	fc 01       	movw	r30, r24
+  12:	80 e0       	ldi	r24, 0x00	; 0
+  14:	90 e0       	ldi	r25, 0x00	; 0
+  16:	91 83       	std	Z+1, r25	; 0x01
+  18:	80 83       	st	Z, r24
+  1a:	73 83       	std	Z+3, r23	; 0x03
+  1c:	62 83       	std	Z+2, r22	; 0x02
+  1e:	08 95       	ret
+
+00000020 <_ZN10CallSIM9006answerEv>:
+  20:	08 95       	ret
+
+00000022 <_ZN10CallSIM90010callNumberEPh>:
+  22:	08 95       	ret
+
+00000024 <_ZN10CallSIM90017callFromPhonebookEh>:
+  24:	08 95       	ret
+
+00000026 <_ZN10CallSIM90020callByPhonebookMatchEPh>:
+  26:	08 95       	ret
+
+00000028 <_ZN10CallSIM9006redialEv>:
+  28:	08 95       	ret
+
+0000002a <_ZN10CallSIM90010disconnectEv>:
+  2a:	08 95       	ret
+
+Call.o:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000000  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00000000  00000000  00000034  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000000  00000000  00000000  00000034  2**0
+                  ALLOC

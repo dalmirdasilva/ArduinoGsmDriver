@@ -27,7 +27,7 @@ class GprsSIM900 : public Gprs {
     /**
      * Multi connection.
      */
-    bool multiconnection;
+    bool multiplexed;
     
 public:
     
