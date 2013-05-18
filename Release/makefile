@@ -52,38 +52,38 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 LSS += \
-libArduinoGsm.lss \
+libArduinoGsmDriver.lss \
 
 SIZEDUMMY += \
 sizedummy \
 
 
 # All Target
-all: libArduinoGsm.a secondary-outputs
+all: libArduinoGsmDriver.a secondary-outputs
 
 # Tool invocations
-libArduinoGsm.a: $(OBJS)
+libArduinoGsmDriver.a: $(OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR Archiver'
-	avr-ar -r  "libArduinoGsm.a" $(OBJS) $(LIBS)
+	avr-ar -r  "libArduinoGsmDriver.a" $(OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-libArduinoGsm.lss: libArduinoGsm.a
+libArduinoGsmDriver.lss: libArduinoGsmDriver.a
 	@echo 'Invoking: AVR Create Extended Listing'
-	-avr-objdump -h -S libArduinoGsm.a  >"libArduinoGsm.lss"
+	-avr-objdump -h -S libArduinoGsmDriver.a  >"libArduinoGsmDriver.lss"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-sizedummy: libArduinoGsm.a
+sizedummy: libArduinoGsmDriver.a
 	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=atmega328p libArduinoGsm.a
+	-avr-size --format=avr --mcu=atmega328p libArduinoGsmDriver.a
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C_DEPS)$(LSS)$(S_DEPS)$(CXX_DEPS)$(S_UPPER_DEPS)$(C++_DEPS)$(ASM_DEPS)$(CC_DEPS)$(ARCHIVES)$(CPP_DEPS)$(C_UPPER_DEPS)$(SIZEDUMMY) libArduinoGsm.a
+	-$(RM) $(OBJS)$(C_DEPS)$(LSS)$(S_DEPS)$(CXX_DEPS)$(S_UPPER_DEPS)$(C++_DEPS)$(ASM_DEPS)$(CC_DEPS)$(ARCHIVES)$(CPP_DEPS)$(C_UPPER_DEPS)$(SIZEDUMMY) libArduinoGsmDriver.a
 	-@echo ' '
 
 secondary-outputs: $(LSS) $(SIZEDUMMY)
