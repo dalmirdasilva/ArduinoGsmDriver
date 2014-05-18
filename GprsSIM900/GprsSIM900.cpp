@@ -32,7 +32,7 @@ unsigned char GprsSIM900::useMultiplexer(bool use) {
     return (unsigned char) sim->sendCommandExpecting(command, "OK", (bool) true);
 }
 
-unsigned char GprsSIM900::startTask(const char *apn, const char *login, const char *password) {
+unsigned char GprsSIM900::attach(const char *apn, const char *login, const char *password) {
     bool expected;
     sim->write("AT+CSTT=\"");
     sim->write(apn);
