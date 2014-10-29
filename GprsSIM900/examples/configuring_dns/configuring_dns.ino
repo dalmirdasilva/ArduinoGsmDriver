@@ -11,7 +11,7 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Setup initiated...");
   gprs.begin(19200);
-  op = gprs.startTask("zap.vivo.com.br", "vivo","vivo");
+  op = gprs.attach("zap.vivo.com.br", "vivo","vivo");
   op = gprs.bringUp();
   op = gprs.configureDns("8.8.8.8", "8.8.4.4");
   Serial.println("Done");

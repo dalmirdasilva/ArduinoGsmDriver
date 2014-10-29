@@ -71,7 +71,7 @@ public:
      * @param password      The GPRS password.
      * @return
      */
-    unsigned char startTask(const char *apn, const char *login, const char *password);
+    unsigned char attach(const char *apn, const char *login, const char *password);
 
     /**
      * Bring Up Wireless Connection with GPRS or CSD

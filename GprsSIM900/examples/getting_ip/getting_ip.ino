@@ -11,11 +11,11 @@ void setup() {
   Serial.println("Setup initiated...");
   gprs.begin(19200);
   unsigned char op;
-  op = gprs.startTask(
+  op = gprs.attach(
            (unsigned char *)"zap.vivo.com.br",
            (unsigned char *)"vivo",
            (unsigned char *)"vivo");
-  Serial.print("startTask: ");
+  Serial.print("attach: ");
   Serial.println(op);
   Serial.println("getLastResponse: ");
   Serial.println((const char*)sim.getLastResponse());
