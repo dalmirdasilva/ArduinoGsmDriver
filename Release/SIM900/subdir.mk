@@ -17,7 +17,7 @@ CPP_DEPS += \
 SIM900/%.o: ../SIM900/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: AVR C++ Compiler'
-	avr-g++ -I/usr/share/arduino/hardware/arduino/variants/standard -I/usr/share/arduino/hardware/arduino/cores/arduino -I/usr/share/arduino/libraries/SoftwareSerial -I"/storage/microcontroller/arduino/driver/gsm/Call" -I"/storage/microcontroller/arduino/driver/gsm/CallSIM900" -I"/storage/microcontroller/arduino/driver/gsm/Gprs" -I"/storage/microcontroller/arduino/driver/gsm/GprsSIM900" -I"/storage/microcontroller/arduino/driver/gsm/SIM900" -I"/storage/microcontroller/arduino/driver/gsm/Sms" -I"/storage/microcontroller/arduino/driver/gsm/SmsSIM900" -Wall -Os -fpack-struct -fshort-enums -funsigned-char -funsigned-bitfields -fno-exceptions -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -c -o "$@" "$<"
+	avr-g++ -I/opt/arduino-1.6.5/hardware/arduino/avr/variants/standard/ -I/opt/arduino-1.6.5/hardware/arduino/avr/cores/arduino -I/opt/arduino-1.6.5/hardware/arduino/avr/libraries/SoftwareSerial -I"/work/opensource/personal/ArduinoGsmDriver/Call" -I"/work/opensource/personal/ArduinoGsmDriver/CallSIM900" -I"/work/opensource/personal/ArduinoGsmDriver/Gprs" -I"/work/opensource/personal/ArduinoGsmDriver/GprsSIM900" -I"/work/opensource/personal/ArduinoGsmDriver/SIM900" -I"/work/opensource/personal/ArduinoGsmDriver/Sms" -I"/work/opensource/personal/ArduinoGsmDriver/SmsSIM900" -Wall -Os -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -funsigned-char -funsigned-bitfields -fno-exceptions -mmcu=atmega328p -DF_CPU=16000000UL -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -c -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

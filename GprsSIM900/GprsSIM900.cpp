@@ -13,7 +13,8 @@
 
 #include "GprsSIM900.h"
 
-GprsSIM900::GprsSIM900(SIM900 *sim) : sim(sim) {
+GprsSIM900::GprsSIM900(SIM900 *sim) :
+        sim(sim) {
     multiplexed = false;
 }
 
@@ -52,8 +53,8 @@ unsigned char GprsSIM900::bringUp() {
 
 unsigned char GprsSIM900::obtainIp(unsigned char *buf) {
     sim->sendCommand("+CIFSR", (bool) true);
-    if (!sim->doesResponseContains("ERROR")) {
-        char n = 0, j, i = 0, part[4] = {0};
+    if (!sim->doesResponseContain("ERROR")) {
+        char n = 0, j, i = 0, part[4] = { 0 };
         unsigned char* p = sim->getLastResponse();
         while (*p != '\0' && n < 4) {
             if (*p >= '0' && *p <= '9') {
@@ -96,7 +97,8 @@ unsigned char GprsSIM900::open(const char *mode, const char *address, unsigned i
     return open(-1, mode, address, port);
 }
 
-unsigned char GprsSIM900::open(char connection, const char *mode, const char *address, unsigned int port) {
+unsigned char GprsSIM900::open(char connection, const char *mode, const char *address,
+        unsigned int port) {
     bool expected;
     sim->write("AT+CIPSTART=");
     if (connection != -1) {
@@ -141,7 +143,7 @@ unsigned char GprsSIM900::send(unsigned char *buf, unsigned int len) {
 }
 
 unsigned char GprsSIM900::send(char connection, unsigned char *buf, unsigned int len) {
-    sim->readBytes((char *)buf, len);
+    sim->readBytes((char *) buf, len);
 }
 
 unsigned char GprsSIM900::setUpServer(unsigned char mode, unsigned int port) {

@@ -1,1 +1,1 @@
-Sms/Sms.d Sms/Sms.o: ../Sms/Sms.cpp
+Sms/Sms.d: ../Sms/Sms.cpp

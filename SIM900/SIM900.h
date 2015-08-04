@@ -115,7 +115,7 @@ public:
      * @param expectation       The expectation string.
      * @return 
      */
-    bool doesResponseContains(const char *expectation);
+    bool doesResponseContain(const char *expectation);
 
     /**
      * Sends a command to the device.

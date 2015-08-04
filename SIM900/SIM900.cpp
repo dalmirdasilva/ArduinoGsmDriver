@@ -36,10 +36,10 @@ bool SIM900::sendCommandExpecting(const char *command, const char *expectation, 
     if (sendCommand(command, append, timeout) == 0) {
         return false;
     }
-    return doesResponseContains(expectation);
+    return doesResponseContain(expectation);
 }
 
-bool SIM900::doesResponseContains(const char *expectation) {
+bool SIM900::doesResponseContain(const char *expectation) {
     rxPointer = &rxBuffer[0];
     bool does = strstr((const char*) rxPointer, (const char*) expectation) != NULL;
     return does;
