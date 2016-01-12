@@ -173,6 +173,7 @@ unsigned char GprsSIM900::parseIp(const char *buf, unsigned char ip[4]) {
     if (i > 0) {
         ip[n++] = (unsigned char) atoi(part);
     }
+    return n;
 }
 
 #endif /* __ARDUINO_DRIVER_GSM_GPRS_SIM900_CPP__ */

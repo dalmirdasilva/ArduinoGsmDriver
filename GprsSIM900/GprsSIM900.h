@@ -185,6 +185,13 @@ public:
 
 
 private:
+
+    /**
+     * Tries to parse an IP from string.
+     *
+     * @param           buf should have the following format: [0-9]{1,4}.[0-9]{1,4}.[0-9]{1,4}.[0-9]{1,4}
+     * @param           ip  whre to store the parsed ip, 4 bytes.
+     */
     unsigned char parseIp(const char *buf, unsigned char ip[4]);
 };
 
