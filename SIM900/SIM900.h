@@ -251,6 +251,14 @@ public:
      * in case tx was not fully read.
      */
     bool wasResponseFullyRead();
+
+    /**
+     * Searches the response for a given string.
+     *
+     * @param   str     The string to be searched inside response
+     * @return          The pointer to the first found string, NULL if not found
+     */
+    const char *findInResponse(const char *str);
 /*
     void getProductIdentificationInformation();
 

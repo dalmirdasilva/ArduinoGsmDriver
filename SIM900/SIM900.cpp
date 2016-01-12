@@ -14,8 +14,9 @@
 #include <Arduino.h>
 #include "SIM900.h"
 
-SIM900::SIM900(unsigned char receivePin, unsigned char transmitPin, unsigned char resetPin, unsigned char powerPin)
-        : SoftwareSerial(receivePin, transmitPin), echo(true), resetPin(resetPin), powerPin(powerPin), responseFullyRead(true) {
+SIM900::SIM900(unsigned char receivePin, unsigned char transmitPin, unsigned char resetPin, unsigned char powerPin) :
+        SoftwareSerial(receivePin, transmitPin), echo(true), resetPin(resetPin), powerPin(powerPin), responseFullyRead(
+        true) {
     rxBuffer[0] = '\0';
     pinMode(resetPin, OUTPUT);
     pinMode(powerPin, OUTPUT);
@@ -60,9 +61,7 @@ bool SIM900::sendCommandExpecting(const char *command, const char *expectation, 
 }
 
 bool SIM900::doesResponseContains(const char *expectation) {
-    unsigned char *pointer = &rxBuffer[0];
-    bool does = strstr((const char*) pointer, (const char*) expectation) != NULL;
-    return does;
+    return findInResponse(expectation) != NULL;
 }
 
 int SIM900::sendCommand(const char *command, bool append, unsigned long timeout) {
@@ -71,8 +70,6 @@ int SIM900::sendCommand(const char *command, bool append, unsigned long timeout)
         print("AT");
     }
     println(command);
-    Serial.println("command sent");
-    Serial.println(command);
     return readResponse(timeout);
 }
 
@@ -101,10 +98,6 @@ unsigned int SIM900::readResponse(unsigned long timeout) {
             }
         }
     } while ((millis() - start) < timeout && availableBytes > 0);
-
-    Serial.print("buffer: ");
-    Serial.println((const char *) rxBuffer);
-
     return pointer;
 }
 
@@ -123,6 +116,11 @@ unsigned char SIM900::disconnect(DisconnectParamter param) {
 
 bool SIM900::wasResponseFullyRead() {
     return responseFullyRead;
+}
+
+const char *SIM900::findInResponse(const char *str) {
+    const char *response = (const char *) &rxBuffer[0];
+    return (const char *) strstr(response, str);
 }
 
 #endif /* __ARDUINO_DRIVER_GSM_SIM900_CPP__ */

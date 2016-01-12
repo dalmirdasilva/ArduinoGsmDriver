@@ -48,6 +48,17 @@ public:
         COMMAND_TOO_LONG = 2
     };
     
+    enum DnsResolution {
+        NOT_AUTHORIZATION = 0,
+        INVALID_PARAMTER = 1,
+        NETWORK_ERROR = 2,
+        NO_SERVER = 3,
+        TIMEOUT = 4,
+        NO_CONFIGURATION = 5,
+        NO_MEMORY = 6,
+        SUCCESS = 0xff
+    };
+
     /**
      * Public constructor.
      * 
@@ -103,7 +114,7 @@ public:
      * @param entry         Phonebook entry.
      * @return 
      */
-    unsigned char obtainIp(unsigned char *buf);
+    OperationResult obtainIp(unsigned char buf[4]);
 
     /**
      * Query Current Connection Status
@@ -151,9 +162,11 @@ public:
     /**
      * Query the IP Address of Given Domain Name
      * 
-     * @return 
+     * @return  DnsResolution
+     * @param   name    Domain name
+     * @param   ip      4-byte-long array where the ip will be placed
      */
-    unsigned char resolve(const char *name, unsigned char *buf, unsigned int len);
+    DnsResolution resolve(const char *name, unsigned char ip[4]);
 
     /**
      * Send Data Through TCP or UDP Connection
@@ -183,16 +196,13 @@ public:
      */
     unsigned char shutdown();
 
-
-private:
-
     /**
      * Tries to parse an IP from string.
      *
      * @param           buf should have the following format: [0-9]{1,4}.[0-9]{1,4}.[0-9]{1,4}.[0-9]{1,4}
      * @param           ip  whre to store the parsed ip, 4 bytes.
      */
-    unsigned char parseIp(const char *buf, unsigned char ip[4]);
+    unsigned char static parseIp(const char *buf, unsigned char ip[4]);
 };
 
 #endif /* __ARDUINO_DRIVER_GSM_GPRS_SIM900_H__ */
