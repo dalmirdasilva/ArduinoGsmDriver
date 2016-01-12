@@ -13,7 +13,8 @@
 
 #include "GprsSIM900.h"
 
-GprsSIM900::GprsSIM900(SIM900 *sim) : sim(sim) {
+GprsSIM900::GprsSIM900(SIM900 *sim)
+        : sim(sim) {
     multiplexed = false;
 }
 
@@ -56,7 +57,7 @@ unsigned char GprsSIM900::bringUp() {
 unsigned char GprsSIM900::obtainIp(unsigned char *buf) {
     sim->sendCommand("+CIFSR", (bool) true);
     if (!sim->doesResponseContains("ERROR")) {
-        char n = 0, i = 0, part[4] = {0};
+        char n = 0, i = 0, part[4] = { 0 };
         unsigned char* p = sim->getLastResponse(), j;
         while (*p != '\0' && n < 4) {
             if (*p >= '0' && *p <= '9') {
@@ -144,13 +145,34 @@ unsigned char GprsSIM900::send(unsigned char *buf, unsigned int len) {
 }
 
 unsigned char GprsSIM900::send(char connection, unsigned char *buf, unsigned int len) {
-    sim->readBytes((char *)buf, len);
+    sim->readBytes((char *) buf, len);
 }
 
 unsigned char GprsSIM900::setUpServer(unsigned char mode, unsigned int port) {
 }
 
 unsigned char GprsSIM900::shutdown() {
+}
+
+unsigned char GprsSIM900::parseIp(const char *buf, unsigned char ip[4]) {
+    const char *p = buf;
+    unsigned char j, i = 0, n = 0, part[4] = { 0 };
+    while (*p != '\0' && n < 4) {
+        if (*p >= '0' && *p <= '9') {
+            part[i++ % 3] = *p;
+        }
+        if (*p == '.') {
+            ip[n++] = (unsigned char) atoi(part);
+            for (j = 0; j < 4; j++) {
+                part[j] = '0';
+            }
+            i = 0;
+        }
+        p++;
+    }
+    if (i > 0) {
+        ip[n++] = (unsigned char) atoi(part);
+    }
 }
 
 #endif /* __ARDUINO_DRIVER_GSM_GPRS_SIM900_CPP__ */

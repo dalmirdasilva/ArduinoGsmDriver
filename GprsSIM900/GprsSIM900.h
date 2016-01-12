@@ -182,6 +182,10 @@ public:
      * @return 
      */
     unsigned char shutdown();
+
+
+private:
+    unsigned char parseIp(const char *buf, unsigned char ip[4]);
 };
 
 #endif /* __ARDUINO_DRIVER_GSM_GPRS_SIM900_H__ */
