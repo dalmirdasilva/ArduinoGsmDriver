@@ -20,7 +20,36 @@ class CallSIM900 : public Call {
 
 public:
 
+    enum CallResponse {
+
+        // Success
+        OK = 0,
+
+        // If error is related to ME functionality
+        CME_ERROR = 1,
+
+        // If no dial tone and (parameter setting ATX2 or ATX4)
+        NO_DIALTONE = 2,
+
+        // If busy and (parameter setting ATX3 or ATX4)
+        BUSY = 3,
+
+        // If a connection cannot be established
+        NO_CARRIER = 4,
+
+        // If the remote station does not answer
+        NO_ANSWER = 5,
+
+        // If connection successful and non-voice call.
+        // CONNECT<text> TA switches to data mode.
+        // Note: <text> output only if ATX<value> parameter setting with the
+        // <value> >0
+        CONNECT_TEXT = 6
+    };
+
     CallSIM900(SIM900 *sim);
+
+    virtual ~CallSIM900();
 
     /**
      * Answer an Incoming Call
@@ -29,7 +58,7 @@ public:
      * 
      * @return
      */
-    virtual unsigned char answer();
+    unsigned char answer();
 
     /**
      * Mobile Originated Call to Dial A Number
@@ -40,7 +69,7 @@ public:
      * @param number        The number to make the call to.
      * @return
      */
-    virtual unsigned char callNumber(unsigned char *number);
+    unsigned char callNumber(unsigned char *number);
 
     /**
      * Originate Call to Phone Number in Current Memory
@@ -50,7 +79,7 @@ public:
      * @param position      Phonebook position.
      * @return 
      */
-    virtual unsigned char callFromPhonebook(unsigned char position);
+    unsigned char callFromPhonebook(unsigned char position);
 
     /**
      * Originate Call to Phone Number in Memory Which Corresponds to Field
@@ -61,7 +90,7 @@ public:
      * @param entry         Phonebook entry.
      * @return 
      */
-    virtual unsigned char callByPhonebookMatch(unsigned char *entry);
+    unsigned char callByPhonebookMatch(unsigned char *entry);
 
     /**
      * Redial Last Telephone Number Used
@@ -70,14 +99,27 @@ public:
      * 
      * @return 
      */
-    virtual unsigned char redial();
+    unsigned char redial();
 
     /**
      * Disconnect Existing Connection
      * 
      * @return 
      */
-    virtual unsigned char disconnect();
+    unsigned char disconnect();
+
+    /**
+     * Set number of rings before automatically answering the call
+     *
+     * @param rings Number of rings before automatically answering. 0 means disable.
+     * @return 0 if error, > 0 otherwise.
+     */
+    unsigned char setAutomaticallyAnswering(unsigned char rings);
+
+    /**
+     * Check call response.
+     */
+    unsigned char checkResponse();
 };
 
 #endif /* __ARDUINO_DRIVER_GSM_CALL_SIM900_H__ */

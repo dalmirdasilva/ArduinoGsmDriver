@@ -17,10 +17,13 @@ GprsSIM900::GprsSIM900(SIM900 *sim) : sim(sim) {
     multiplexed = false;
 }
 
-void GprsSIM900::begin(long bound) {
-    sim->begin(bound);
+unsigned char GprsSIM900::begin(long bound) {
+    if (sim->begin(bound) == 0) {
+        return 0;
+    }
     sim->setCommandEcho(false);
-    sim->sendCommand("+CIPSHUT", (bool) true);
+    sim->sendCommand("+CIPSHUT", true);
+    return 1;
 }
 
 unsigned char GprsSIM900::useMultiplexer(bool use) {
@@ -53,8 +56,8 @@ unsigned char GprsSIM900::bringUp() {
 unsigned char GprsSIM900::obtainIp(unsigned char *buf) {
     sim->sendCommand("+CIFSR", (bool) true);
     if (!sim->doesResponseContains("ERROR")) {
-        char n = 0, j, i = 0, part[4] = {0};
-        unsigned char* p = sim->getLastResponse();
+        char n = 0, i = 0, part[4] = {0};
+        unsigned char* p = sim->getLastResponse(), j;
         while (*p != '\0' && n < 4) {
             if (*p >= '0' && *p <= '9') {
                 part[i++ % 3] = *p;
@@ -79,7 +82,7 @@ unsigned char GprsSIM900::obtainIp(unsigned char *buf) {
 }
 
 unsigned char GprsSIM900::status() {
-    sim->sendCommand("+CIFSR", (bool) true);
+    sim->sendCommand("+CIFSR", true);
 }
 
 unsigned char GprsSIM900::configureDns(const char *primary, const char *secondary) {

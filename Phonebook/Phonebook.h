@@ -1,28 +1,24 @@
 /**
  * Arduino - Gsm driver
  * 
- * Call.h
- * 
- * Interface to calls.
+ * Interface to phonebook.
  * 
  * @author Dalmir da Silva <dalmirdasilva@gmail.com>
  */
 
-#ifndef __ARDUINO_DRIVER_GSM_CALL_H__
-#define __ARDUINO_DRIVER_GSM_CALL_H__ 1
+#ifndef __ARDUINO_DRIVER_GSM_PHONEBOOK_H__
+#define __ARDUINO_DRIVER_GSM_PHONEBOOK_H__ 1
 
-class Call {
+class Phonebook {
     
 public:
 
     /**
-    * Answer an Incoming Call
-    * 
-    * TA sends off-hook to the remote station.
+    * Find Phonebook Entries
     * 
     * @return
     */
-    virtual unsigned char answer() = 0;
+    virtual unsigned char findEntries() = 0;
 
     /**
     * Mobile Originated Call to Dial A Number
@@ -81,4 +77,4 @@ public:
     virtual unsigned char setAutomaticallyAnswering(unsigned char rings) = 0;
 };
 
-#endif /* __ARDUINO_DRIVER_GSM_CALL_H__ */
+#endif /* __ARDUINO_DRIVER_GSM_PHONEBOOK_H__ */

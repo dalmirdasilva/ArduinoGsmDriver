@@ -5,6 +5,17 @@
  * 
  * GPRS connection using SIM900.
  * 
+ * Steps to connect to the GPRS net and issue a get request.
+ *
+ * <ul>
+ *  <li>call init</li>
+ *  <li>call useMultiplexer</li>
+ *  <li>call attach</li>
+ *  <li>call bringUp</li>
+ *  <li>call obtainIp</li>
+ *  <li>configureDns("8.8.8.8", "8.8.4.4")</li>
+ * </ul>
+ *
  * @author Dalmir da Silva <dalmirdasilva@gmail.com>
  */
 
@@ -48,8 +59,9 @@ public:
      * Initializes the device.
      * 
      * @param           The bound rate to be used.
+     * @return          > 0 if success, 0 otherwise.
      */
-    void begin(long bound);
+    unsigned char begin(long bound);
 
     /**
      * Start Up Multi-IP Connection 
