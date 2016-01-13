@@ -13,9 +13,8 @@
 
 #include "GprsSIM900.h"
 
-GprsSIM900::GprsSIM900(SIM900 *sim) :
-        sim(sim) {
-    multiplexed = false;
+GprsSIM900::GprsSIM900(SIM900 *sim)
+        : sim(sim), multiplexed(false) {
 }
 
 unsigned char GprsSIM900::begin(long bound) {
@@ -50,15 +49,15 @@ unsigned char GprsSIM900::attach(const char *apn, const char *login, const char 
 
 unsigned char GprsSIM900::bringUp() {
     bool expected;
-    expected = sim->sendCommandExpecting("+CIICR", "OK", true, 20000);
+    expected = sim->sendCommandExpecting("+CIICR", "OK", true, GPRS_SIM900_CIICR_TIMEOUT);
     return (unsigned char) (expected ? GprsSIM900::OK : GprsSIM900::ERROR);
 }
 
-GprsSIM900::OperationResult GprsSIM900::obtainIp(unsigned char buf[4]) {
-    bool ok = sim->sendCommandExpecting("+CIFSR", "OK", true);
-    if (ok) {
+unsigned char GprsSIM900::obtainIp(unsigned char ip[4]) {
+    unsigned int receivedBytes = sim->sendCommand("+CIFSR", true, (unsigned long) GPRS_SIM900_CIICR_TIMEOUT);
+    if (receivedBytes > 0) {
         const char* p = (const char*) sim->getLastResponse();
-        return (parseIp(p, buf) == 4) ? GprsSIM900::OK : GprsSIM900::ERROR;
+        return (parseIp(p, ip) == 4) ? GprsSIM900::OK : GprsSIM900::ERROR;
     }
     return GprsSIM900::ERROR;
 }
@@ -113,18 +112,22 @@ unsigned char GprsSIM900::close() {
     return close(-1);
 }
 
-GprsSIM900::DnsResolution GprsSIM900::resolve(const char *name, unsigned char ip[4]) {
+unsigned char GprsSIM900::resolve(const char *name, unsigned char ip[4]) {
     bool ok;
-    sim->write("AT+CDNSGIP=");
-    ok = sim->sendCommandExpecting(name, "OK");
+    sim->write("AT+CDNSGIP=\"");
+    sim->write(name);
+    ok = sim->sendCommandExpecting("\"", "OK");
     if (ok) {
-        char *at = sim->findInResponse("");
-        if (sim->doesResponseContains("")) {
-
+        int at = sim->waitUntilReceive("+CDNSGIP: 1", GPRS_SIM900_CDNSGIP_TIMEOUT);
+        if (at >= 0) {
+            at = sim->waitUntilReceive("\",\"", GPRS_SIM900_CDNSGIP_TIMEOUT);
+            if (at >= 0) {
+                const char* p = (const char*) sim->getLastResponse();
+                return parseIp(p + at, ip) == 4 ? GprsSIM900::OK : GprsSIM900::ERROR;
+            }
         }
-        return GprsSIM900::SUCCESS;
     }
-    return GprsSIM900::SUCCESS;
+    return GprsSIM900::ERROR;
 }
 
 unsigned char GprsSIM900::send(unsigned char *buf, unsigned int len) {
@@ -152,7 +155,7 @@ unsigned char GprsSIM900::parseIp(const char *buf, unsigned char ip[4]) {
         if (*p == '.') {
             ip[n++] = (unsigned char) atoi((const char*) part);
             for (j = 0; j < 4; j++) {
-                part[j] = '0';
+                part[j] = '\0';
             }
             i = 0;
         }

@@ -22,7 +22,9 @@
 #ifndef __ARDUINO_DRIVER_GSM_GPRS_SIM900_H__
 #define __ARDUINO_DRIVER_GSM_GPRS_SIM900_H__ 1
 
-#define GPRS_SIM900_MAX_COMMAND_LENGHT 64
+#define GPRS_SIM900_MAX_COMMAND_LENGHT  64
+#define GPRS_SIM900_CDNSGIP_TIMEOUT     5000
+#define GPRS_SIM900_CIICR_TIMEOUT       10000
 
 #include <Gprs.h>
 #include <SIM900.h>
@@ -65,6 +67,8 @@ public:
      * @param sim       The SIM900 pointer.
      */
     GprsSIM900(SIM900 *sim);
+
+    virtual ~GprsSIM900() {}
 
     /**
      * Initializes the device.
@@ -114,7 +118,7 @@ public:
      * @param entry         Phonebook entry.
      * @return 
      */
-    OperationResult obtainIp(unsigned char buf[4]);
+    unsigned char obtainIp(unsigned char ip[4]);
 
     /**
      * Query Current Connection Status
@@ -162,11 +166,13 @@ public:
     /**
      * Query the IP Address of Given Domain Name
      * 
+     * +CDNSGIP: 1,"www.google.com","216.58.222.132"
+     *
      * @return  DnsResolution
-     * @param   name    Domain name
+     * @param   name    Domain name. Should contains less than 256 bytes
      * @param   ip      4-byte-long array where the ip will be placed
      */
-    DnsResolution resolve(const char *name, unsigned char ip[4]);
+    unsigned char resolve(const char *name, unsigned char ip[4]);
 
     /**
      * Send Data Through TCP or UDP Connection
@@ -202,7 +208,7 @@ public:
      * @param           buf should have the following format: [0-9]{1,4}.[0-9]{1,4}.[0-9]{1,4}.[0-9]{1,4}
      * @param           ip  whre to store the parsed ip, 4 bytes.
      */
-    unsigned char static parseIp(const char *buf, unsigned char ip[4]);
+    unsigned char parseIp(const char *buf, unsigned char ip[4]);
 };
 
 #endif /* __ARDUINO_DRIVER_GSM_GPRS_SIM900_H__ */

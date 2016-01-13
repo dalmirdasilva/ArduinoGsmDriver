@@ -12,6 +12,7 @@
 #define __ARDUINO_DRIVER_GSM_GPRS_H__ 1
 
 class Gprs {
+
 public:
 
     /**
@@ -54,7 +55,7 @@ public:
      * @param entry         Phonebook entry.
      * @return 
      */
-    virtual unsigned char obtainIp(unsigned char *buf) = 0;
+    virtual unsigned char obtainIp(unsigned char ip[4]) = 0;
 
     /**
      * Query Current Connection Status
@@ -104,7 +105,7 @@ public:
      * 
      * @return 
      */
-    virtual unsigned char resolve(const char *name, unsigned char *buf, unsigned int len) = 0;
+    virtual unsigned char resolve(const char *name, unsigned char *buf) = 0;
 
     /**
      * Send Data Through TCP or UDP Connection

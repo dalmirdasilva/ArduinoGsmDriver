@@ -16,14 +16,22 @@
 #include <SoftwareSerial.h>
 
 #define SIM900_RX_BUFFER_SIZE 256
-#define SIM900_INITIALIZATION_TIMEOUT 10000
 
-class SIM900 : public SoftwareSerial {
+#define SIM900_DEFAULT_COMMAND_RESPONSE_TIMEOUT 500UL
+#define SIM900_INITIALIZATION_TIMEOUT           10000UL
+
+class SIM900: public SoftwareSerial {
+
     /**
      * RX buffer.
      */
     unsigned char rxBuffer[SIM900_RX_BUFFER_SIZE];
-    
+
+    /**
+     * RX buffer position.
+     */
+    unsigned int rxBufferPos;
+
     /**
      * Using echo.
      */
@@ -88,6 +96,9 @@ public:
      */
     SIM900(unsigned char receivePin, unsigned char transmitPin, unsigned char resetPin, unsigned char powerPin);
 
+    /**
+     * Virtual destructor.
+     */
     virtual ~SIM900();
 
     /**
@@ -137,7 +148,7 @@ public:
      * @return 
      */
     inline bool sendCommandExpecting(const char *command, const char *expectation, bool append) {
-        return sendCommandExpecting(command, expectation, append, 1000);
+        return sendCommandExpecting(command, expectation, append, SIM900_DEFAULT_COMMAND_RESPONSE_TIMEOUT);
     }
 
     /**
@@ -182,7 +193,7 @@ public:
      * @param timeout           The maximum time to perform the op.
      * @return 
      */
-    int sendCommand(const char *command, bool append, unsigned long timeout);
+    unsigned int sendCommand(const char *command, bool append, unsigned long timeout);
 
     /**
      * Sends a command to the device.
@@ -193,7 +204,7 @@ public:
      * @param append            Boolean saying if the AT must be appended.
      * @return 
      */
-    inline int sendCommand(const char *command, bool append) {
+    inline unsigned int sendCommand(const char *command, bool append) {
         return sendCommand(command, append, 1000);
     }
 
@@ -206,7 +217,7 @@ public:
      * @param append            Boolean saying if the AT must be appended.
      * @return 
      */
-    inline int sendCommand(const char *command, unsigned long timeout) {
+    inline unsigned int sendCommand(const char *command, unsigned long timeout) {
         return sendCommand(command, (bool) false, timeout);
     }
 
@@ -219,7 +230,7 @@ public:
      * @param command           The command string, should be \0 ended.
      * @return 
      */
-    inline int sendCommand(const char *command) {
+    inline unsigned int sendCommand(const char *command) {
         return sendCommand(command, (bool) false);
     }
 
@@ -229,7 +240,18 @@ public:
      * @param timeout           The maximum time to perform the op.
      * @return                  How many bytes was received. 0 if timeout.
      */
-    unsigned int readResponse(unsigned long timeout);
+    inline unsigned int readResponse(unsigned long timeout) {
+        return readResponse(timeout, false);
+    }
+
+    /**
+     * Reads the response from the device.
+     *
+     * @param timeout           The maximum time to perform the op.
+     * @param append            Append the response in the internal buffer.
+     * @return                  How many bytes was received. 0 if timeout.
+     */
+    unsigned int readResponse(unsigned long timeout, bool append);
 
     /**
      * Configures echo mode
@@ -259,13 +281,22 @@ public:
      * @return          The pointer to the first found string, NULL if not found
      */
     const char *findInResponse(const char *str);
-/*
-    void getProductIdentificationInformation();
 
-    void setMonitorSpeakerLoudness();
+    /**
+     * Keeps reading the response until finds the str or timeout.
+     *
+     * @param   str         String it tries to find
+     * @param   timeout     Timeout in millis
+     * @return              The position to the first char it finds in the internal buffer, -1 otherwise
+     */
+    int waitUntilReceive(const char *str, unsigned int timeout);
+    /*
+     void getProductIdentificationInformation();
 
-    void setMonitorSpeakerMode();
-*/
+     void setMonitorSpeakerLoudness();
+
+     void setMonitorSpeakerMode();
+     */
 };
 
 #endif /* __ARDUINO_DRIVER_GSM_SIM900_H__ */

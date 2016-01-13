@@ -14,8 +14,8 @@
 #include <Arduino.h>
 #include "SIM900.h"
 
-SIM900::SIM900(unsigned char receivePin, unsigned char transmitPin, unsigned char resetPin, unsigned char powerPin) :
-        SoftwareSerial(receivePin, transmitPin), echo(true), resetPin(resetPin), powerPin(powerPin), responseFullyRead(
+SIM900::SIM900(unsigned char receivePin, unsigned char transmitPin, unsigned char resetPin, unsigned char powerPin)
+        : SoftwareSerial(receivePin, transmitPin), rxBufferPos(0), echo(true), resetPin(resetPin), powerPin(powerPin), responseFullyRead(
         true) {
     rxBuffer[0] = '\0';
     pinMode(resetPin, OUTPUT);
@@ -26,19 +26,12 @@ SIM900::~SIM900() {
 }
 
 unsigned char SIM900::begin(long bound) {
-    unsigned char ready = 0;
     SoftwareSerial::begin(bound);
-    if (sendCommandExpecting((const char *) "AT", (const char *) "OK", (unsigned long) 100)) {
-        ready = 1;
-    } else {
-        unsigned long start = millis();
-        softPower();
-        do {
-            readResponse(SIM900_INITIALIZATION_TIMEOUT);
-            ready = doesResponseContains("Call Ready");
-        } while (!ready && millis() < start + SIM900_INITIALIZATION_TIMEOUT);
+    if (sendCommandExpecting("AT", "OK", 100UL)) {
+        return 1;
     }
-    return ready;
+    softPower();
+    return (unsigned char) (waitUntilReceive("Call Ready", SIM900_INITIALIZATION_TIMEOUT) >= 0);
 }
 
 void SIM900::softReset() {
@@ -64,7 +57,7 @@ bool SIM900::doesResponseContains(const char *expectation) {
     return findInResponse(expectation) != NULL;
 }
 
-int SIM900::sendCommand(const char *command, bool append, unsigned long timeout) {
+unsigned int SIM900::sendCommand(const char *command, bool append, unsigned long timeout) {
     rxBuffer[0] = '\0';
     if (append) {
         print("AT");
@@ -73,10 +66,14 @@ int SIM900::sendCommand(const char *command, bool append, unsigned long timeout)
     return readResponse(timeout);
 }
 
-unsigned int SIM900::readResponse(unsigned long timeout) {
+unsigned int SIM900::readResponse(unsigned long timeout, bool append) {
     int availableBytes;
+    unsigned long currentRxBufferPos;
     unsigned long start = millis();
-    unsigned int pointer = 0;
+    if (!append) {
+        rxBufferPos = 0;
+    }
+    currentRxBufferPos = rxBufferPos;
     while (!available() && (millis() - start) < timeout)
         ;
     start = millis();
@@ -85,20 +82,21 @@ unsigned int SIM900::readResponse(unsigned long timeout) {
         availableBytes = available();
         delay(10);
         if (availableBytes > 0) {
-            if (pointer + availableBytes >= SIM900_RX_BUFFER_SIZE) {
-                availableBytes = SIM900_RX_BUFFER_SIZE - (pointer + 1);
+            if (rxBufferPos + availableBytes >= SIM900_RX_BUFFER_SIZE) {
+                availableBytes = SIM900_RX_BUFFER_SIZE - (rxBufferPos + 1);
                 responseFullyRead = false;
             }
             if (availableBytes == 0) {
                 flush();
             } else {
-                readBytes((char *) &rxBuffer[pointer], availableBytes);
-                pointer += availableBytes;
-                rxBuffer[pointer] = 0;
+                // we have the guaranty that is not going to be too big because it is constrained by the buffer size.
+                unsigned int howMany = readBytes((char *) &rxBuffer[rxBufferPos], availableBytes);
+                rxBufferPos += howMany;
+                rxBuffer[rxBufferPos] = 0;
             }
         }
     } while ((millis() - start) < timeout && availableBytes > 0);
-    return pointer;
+    return rxBufferPos - currentRxBufferPos;
 }
 
 void SIM900::setCommandEcho(bool echo) {
@@ -111,6 +109,7 @@ void SIM900::setCommandEcho(bool echo) {
 }
 
 unsigned char SIM900::disconnect(DisconnectParamter param) {
+    // TODO
     return 3;
 }
 
@@ -121,6 +120,16 @@ bool SIM900::wasResponseFullyRead() {
 const char *SIM900::findInResponse(const char *str) {
     const char *response = (const char *) &rxBuffer[0];
     return (const char *) strstr(response, str);
+}
+
+int SIM900::waitUntilReceive(const char *str, unsigned int timeout) {
+    const char *at;
+    while ((at = findInResponse(str)) == NULL && readResponse(timeout, responseFullyRead) > 0)
+        ;
+    if (at != NULL) {
+        return (int) (at - (const char *) &rxBuffer[0]);
+    }
+    return -1;
 }
 
 #endif /* __ARDUINO_DRIVER_GSM_SIM900_CPP__ */
