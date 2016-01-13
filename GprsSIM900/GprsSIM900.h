@@ -25,6 +25,8 @@
 #define GPRS_SIM900_MAX_COMMAND_LENGHT  64
 #define GPRS_SIM900_CDNSGIP_TIMEOUT     5000
 #define GPRS_SIM900_CIICR_TIMEOUT       10000
+#define GPRS_SIM900_CIPSTART_TIMEOUT    5000
+
 
 #include <Gprs.h>
 #include <SIM900.h>
@@ -73,6 +75,10 @@ public:
     /**
      * Initializes the device.
      * 
+     * Example:
+     * > AT+CIPSHUT
+     * < SHUT OK
+     *
      * @param           The bound rate to be used.
      * @return          > 0 if success, 0 otherwise.
      */
@@ -83,6 +89,10 @@ public:
      * 
      * Enable or disable multi IP connection.
      * 
+     * Example:
+     * > +CIPMUX=0|1
+     * < OK
+     *
      * @param use           0 disables multi IP connection and 1 enables.
      * @return
      */
@@ -93,6 +103,10 @@ public:
      * 
      * Each parameter must be \0 teminated.
      * 
+     * Example:
+     * > AT+CSTT="tim.br","tim","tim"
+     * < OK
+     *
      * @param apn           The apn access point name.
      * @param login         The GPRS user name.
      * @param password      The GPRS password.
@@ -103,6 +117,10 @@ public:
     /**
      * Bring Up Wireless Connection with GPRS or CSD
      * 
+     * Example:
+     * > AT+CIICR
+     * < OK
+     *
      * Connects to the GPRS network.
      * 
      * @return 
@@ -115,6 +133,12 @@ public:
      * Returns the the IP address assigned from GPRS or CSD in 4
      * bytes format.
      * 
+     * Example:
+     * > AT+CIFSR
+     * < OK
+     * <
+     * < 100.83.135.48
+     *
      * @param entry         Phonebook entry.
      * @return 
      */
@@ -144,15 +168,55 @@ public:
     /**
      * Start Up TCP or UDP Connection
      * 
-     * @return 
+     * Example:
+     * > AT+CIPSTART="TCP","184.73.238.232", "80"
+     * < OK
+     * <
+     * < CONNECT OK
+     *
+     * @param   connection  If multi-IP connection (+CIPMUX=1)
+     *                      0..7 A numeric parameter which indicates the connection number
+     * @param   mode        A string parameter(string should be included in quotation
+     *                      marks) which indicates the connection type
+     *                      "TCP" Establish a TCP connection
+     *                      "UDP" Establish a UDP connection
+     * @param   address     A string parameter(string should be included in quotation
+     *                      marks) which indicates remote server IP address
+     * @param   port        Remote server port
+     * @return              OperationResult
      */
     unsigned char open(char connection, const char *mode, const char *address, unsigned int port);
 
     /**
+     * Send Data Through TCP or UDP Connection
+     *
+     * Example:
+     * > AT+CIPSEND= <0-7>,<length>
+     * < >
+     * > data
+     * DATA ACCEPT:<length>
+     *
+     * @return
+     */
+    unsigned int send(unsigned char *buf, unsigned int len);
+
+    /**
+     * Send Data Through TCP or UDP Connection
+     *
+     * @return
+     */
+    unsigned int send(char connection, unsigned char *buf, unsigned int len);
+
+    /**
      * Close TCP or UDP Connection
      * 
-     * @param connection
-     * @return 
+     * Example:
+     * > AT+CIPCLOSE=1[,connection]
+     * < CLOSE OK
+     *
+     * @param   connection  If multi-IP connection (+CIPMUX=1)
+     *                      0..7 A numeric parameter which indicates the connection number
+     * @return              OperationResult
      */
     unsigned char close(char connection);
 
@@ -166,27 +230,17 @@ public:
     /**
      * Query the IP Address of Given Domain Name
      * 
-     * +CDNSGIP: 1,"www.google.com","216.58.222.132"
+     * Example:
+     * > AT+CDNSGIP="www.google.com"
+     * < OK
+     * <
+     * < +CDNSGIP: 1,"www.google.com","64.233.186.99"
      *
      * @return  DnsResolution
      * @param   name    Domain name. Should contains less than 256 bytes
      * @param   ip      4-byte-long array where the ip will be placed
      */
     unsigned char resolve(const char *name, unsigned char ip[4]);
-
-    /**
-     * Send Data Through TCP or UDP Connection
-     * 
-     * @return 
-     */
-    unsigned char send(unsigned char *buf, unsigned int len);
-
-    /**
-     * Send Data Through TCP or UDP Connection
-     * 
-     * @return 
-     */
-    unsigned char send(char connection, unsigned char *buf, unsigned int len);
     
     /**
      * Configure Module as Server
@@ -208,7 +262,7 @@ public:
      * @param           buf should have the following format: [0-9]{1,4}.[0-9]{1,4}.[0-9]{1,4}.[0-9]{1,4}
      * @param           ip  whre to store the parsed ip, 4 bytes.
      */
-    unsigned char parseIp(const char *buf, unsigned char ip[4]);
+    unsigned char static parseIp(const char *buf, unsigned char ip[4]);
 };
 
 #endif /* __ARDUINO_DRIVER_GSM_GPRS_SIM900_H__ */

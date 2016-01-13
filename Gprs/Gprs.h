@@ -112,14 +112,14 @@ public:
      * 
      * @return 
      */
-    virtual unsigned char send(unsigned char *buf, unsigned int len) = 0;
+    virtual unsigned int send(unsigned char *buf, unsigned int len) = 0;
 
     /**
      * Send Data Through TCP or UDP Connection
      * 
      * @return 
      */
-    virtual unsigned char send(char connection, unsigned char *buf, unsigned int len) = 0;
+    virtual unsigned int send(char connection, unsigned char *buf, unsigned int len) = 0;
 
     /**
      * Configure Module as Server
