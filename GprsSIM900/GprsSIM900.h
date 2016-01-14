@@ -26,7 +26,7 @@
 #define GPRS_SIM900_CDNSGIP_TIMEOUT     5000
 #define GPRS_SIM900_CIICR_TIMEOUT       10000
 #define GPRS_SIM900_CIPSTART_TIMEOUT    5000
-
+#define GPRS_SIM900_SEND_TIMEOUT        10000
 
 #include <Gprs.h>
 #include <SIM900.h>

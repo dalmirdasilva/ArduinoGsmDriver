@@ -110,7 +110,7 @@ unsigned int GprsSIM900::send(unsigned char *buf, unsigned int len) {
 
 unsigned int GprsSIM900::send(char connection, unsigned char *buf, unsigned int len) {
     bool ok;
-    unsigned int sent = 0;
+    unsigned int at, sent = 0;
     sim->write("AT+CIPSEND=");
     if (connection != (char) -1) {
         sim->write('0' + connection);
@@ -121,7 +121,8 @@ unsigned int GprsSIM900::send(char connection, unsigned char *buf, unsigned int 
     if (ok) {
         sent = (unsigned int) sim->write((const char *)buf, len);
     }
-    return sent;
+    at = sim->waitUntilReceive("SEND OK", GPRS_SIM900_SEND_TIMEOUT);
+    return at >= 0 ? sent : 0;
 }
 
 unsigned char GprsSIM900::close(char connection) {
