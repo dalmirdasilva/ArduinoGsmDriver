@@ -245,13 +245,24 @@ public:
     /**
      * Configure Module as Server
      * 
+     * This command is allowed to establish a TCP server only when the state is IP
+     * INITIAL or IP STATUS when it is in single state. In multi-IP state, the state
+     * is in IP STATUS only.
+     *
+     * Example:
+     * AT+CIPSERVER=(0-CLOSE SERVER, 1-OPEN SERVER),(1,65535)
+     *
      * @return 
      */
-    unsigned char setUpServer(unsigned char mode, unsigned int port);
+    unsigned char configureServer(unsigned char mode, unsigned int port);
 
     /**
      * Deactivate GPRS PDP Context
      * 
+     * Example:
+     * > AT+CIPSHUT
+     * < SHUT OK
+     *
      * @return 
      */
     unsigned char shutdown();

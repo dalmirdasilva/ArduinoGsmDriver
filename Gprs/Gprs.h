@@ -126,7 +126,7 @@ public:
      * 
      * @return 
      */
-    virtual unsigned char setUpServer(unsigned char mode, unsigned int port) = 0;
+    virtual unsigned char configureServer(unsigned char mode, unsigned int port) = 0;
 
     /**
      * Deactivate GPRS PDP Context

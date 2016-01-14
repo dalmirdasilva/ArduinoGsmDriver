@@ -132,4 +132,8 @@ int SIM900::waitUntilReceive(const char *str, unsigned int timeout) {
     return -1;
 }
 
+void SIM900::discardBuffer() {
+    rxBuffer[0] = '\0';
+}
+
 #endif /* __ARDUINO_DRIVER_GSM_SIM900_CPP__ */

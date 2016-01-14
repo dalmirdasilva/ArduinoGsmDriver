@@ -94,12 +94,10 @@ unsigned char GprsSIM900::open(char connection, const char *mode, const char *ad
     sim->write(address);
     sim->write("\",\"");
     sim->print(port, DEC);
-    ok = sim->sendCommandExpecting("\"", "OK");
-    if (ok) {
-        at = sim->waitUntilReceive("CONNECT", GPRS_SIM900_CIPSTART_TIMEOUT);
-        if (at >= 0 && !sim->doesResponseContains("FAIL")) {
-            return GprsSIM900::OK;
-        }
+    sim->println('"');
+    at = sim->waitUntilReceive("CONNECT", GPRS_SIM900_CIPSTART_TIMEOUT);
+    if (at >= 0 && !sim->doesResponseContains("FAIL")) {
+        return GprsSIM900::OK;
     }
     return (unsigned char) GprsSIM900::ERROR;
 }
@@ -110,7 +108,8 @@ unsigned int GprsSIM900::send(unsigned char *buf, unsigned int len) {
 
 unsigned int GprsSIM900::send(char connection, unsigned char *buf, unsigned int len) {
     bool ok;
-    unsigned int at, sent = 0;
+    int at = -1;
+    unsigned int sent = 0;
     sim->write("AT+CIPSEND=");
     if (connection != (char) -1) {
         sim->write('0' + connection);
@@ -120,20 +119,24 @@ unsigned int GprsSIM900::send(char connection, unsigned char *buf, unsigned int 
     ok = sim->sendCommandExpecting("", ">");
     if (ok) {
         sent = (unsigned int) sim->write((const char *)buf, len);
+        at = sim->waitUntilReceive("SEND OK", GPRS_SIM900_SEND_TIMEOUT);
     }
-    at = sim->waitUntilReceive("SEND OK", GPRS_SIM900_SEND_TIMEOUT);
     return at >= 0 ? sent : 0;
 }
 
 unsigned char GprsSIM900::close(char connection) {
-    bool ok;
+    int at;
     sim->write("AT+CIPCLOSE=1");
     if (connection != (char) -1) {
         sim->write(',');
         sim->write('0' + connection);
     }
-    ok = sim->sendCommandExpecting("", "OK");
-    return (unsigned char) (ok ? GprsSIM900::OK : GprsSIM900::ERROR);
+    sim->println();
+    at = sim->waitUntilReceive("CLOSE OK", GPRS_SIM900_CIPSTART_TIMEOUT);
+    if (at >= 0) {
+        return GprsSIM900::OK;
+    }
+    return GprsSIM900::ERROR;
 }
 
 unsigned char GprsSIM900::close() {
@@ -160,10 +163,14 @@ unsigned char GprsSIM900::resolve(const char *name, unsigned char ip[4]) {
     return GprsSIM900::ERROR;
 }
 
-unsigned char GprsSIM900::setUpServer(unsigned char mode, unsigned int port) {
+unsigned char GprsSIM900::configureServer(unsigned char mode, unsigned int port) {
+    sim->write("AT+CIPSERVER=");
+    sim->write(name);
+
 }
 
 unsigned char GprsSIM900::shutdown() {
+    return sim->sendCommandExpecting("AT+CIPSHUT", "SHUT OK") ? GprsSIM900::OK : GprsSIM900::ERROR;
 }
 
 unsigned char GprsSIM900::parseIp(const char *buf, unsigned char ip[4]) {

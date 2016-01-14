@@ -290,6 +290,12 @@ public:
      * @return              The position to the first char it finds in the internal buffer, -1 otherwise
      */
     int waitUntilReceive(const char *str, unsigned int timeout);
+
+    /**
+     * Discards the internal buffer.
+     */
+    void discardBuffer();
+
     /*
      void getProductIdentificationInformation();
 
