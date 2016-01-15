@@ -11,8 +11,10 @@ AT+CIPCLOSE	 OK	Closes the connection
 AT+CDNSGIP="www.asdasdasdasdw333.com"
 
 
-AT+CIPSTART="TCP","54.86.161.62", "80"
+AT+CIPSTART="TCP","54.86.161.62", "3000"
+AT+CIPSTATUS
 AT+CIPSEND=2
+AT+CIPSTATUS
 
 GET / HTTP/1.1 
 Host: www.dalmirdasilva.com
@@ -20,6 +22,14 @@ Host: www.dalmirdasilva.com
 AT+HTTPREAD=1,22
 
 AT+CIPRXGET
+AT+CIPSHUT
 
 AT+CIPCLOSE=1
 opasopa
+
+
+
+
+
+If 
+

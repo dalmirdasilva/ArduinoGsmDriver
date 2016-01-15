@@ -12,6 +12,7 @@
 #define __ARDUINO_DRIVER_GSM_GPRS_SIM900_CPP__ 1
 
 #include "GprsSIM900.h"
+#include <WString.h>
 
 GprsSIM900::GprsSIM900(SIM900 *sim) :
         sim(sim), multiplexed(false) {
@@ -63,7 +64,42 @@ unsigned char GprsSIM900::obtainIp(unsigned char ip[4]) {
 }
 
 unsigned char GprsSIM900::status() {
-    sim->sendCommand("+CIFSR", true);
+    return status(-1);
+}
+
+unsigned char GprsSIM900::status(unsigned char connection) {
+    int at;
+    sim->write("AT+CIPSTATUS");
+    if (connection != (char) -1) {
+        sim->write('=');
+        sim->write('0' + connection);
+    }
+    sim->sendCommandExpecting("", "OK");
+    at = sim->waitUntilReceive("STATE", GPRS_SIM900_CIPSTATUS_TIMEOUT);
+    if (at >= 0) {
+        if (sim->doesResponseContains("INITIAL")) {
+            return GprsSIM900::IP_INITIAL;
+        } else if (sim->doesResponseContains("START")) {
+            return GprsSIM900::IP_START;
+        } else if (sim->doesResponseContains("CONFIG")) {
+            return GprsSIM900::IP_CONFIG;
+        } else if (sim->doesResponseContains("GPRSACT")) {
+            return GprsSIM900::IP_GPRSACT;
+        } else if (sim->doesResponseContains("STATUS")) {
+            return GprsSIM900::IP_STATUS;
+        } else if (sim->doesResponseContains("CONNECTING") || sim->doesResponseContains("LISTENING")) {
+            return GprsSIM900::CONNECTING_OR_LISTENING;
+        } else if (sim->doesResponseContains("CONNECT OK")) {
+            return GprsSIM900::CONNECT_OK;
+        } else if (sim->doesResponseContains("CLOSING")) {
+            return GprsSIM900::CLOSING;
+        } else if (sim->doesResponseContains("CLOSED")) {
+            return GprsSIM900::CLOSED;
+        } else if (sim->doesResponseContains("DEACT")) {
+            return GprsSIM900::PDP_DEACT;
+        }
+    }
+    return (unsigned char) GprsSIM900::ERROR_WHEN_QUERING;
 }
 
 unsigned char GprsSIM900::configureDns(const char *primary, const char *secondary) {
@@ -81,8 +117,7 @@ unsigned char GprsSIM900::open(const char *mode, const char *address, unsigned i
 }
 
 unsigned char GprsSIM900::open(char connection, const char *mode, const char *address, unsigned int port) {
-    bool ok;
-    unsigned int at;
+    int at;
     sim->write("AT+CIPSTART=");
     if (connection != (char) -1) {
         sim->write('0' + connection);
@@ -94,7 +129,7 @@ unsigned char GprsSIM900::open(char connection, const char *mode, const char *ad
     sim->write(address);
     sim->write("\",\"");
     sim->print(port, DEC);
-    sim->println('"');
+    sim->sendCommand("\"");
     at = sim->waitUntilReceive("CONNECT", GPRS_SIM900_CIPSTART_TIMEOUT);
     if (at >= 0 && !sim->doesResponseContains("FAIL")) {
         return GprsSIM900::OK;
@@ -118,7 +153,7 @@ unsigned int GprsSIM900::send(char connection, unsigned char *buf, unsigned int 
     sim->print(len, DEC);
     ok = sim->sendCommandExpecting("", ">");
     if (ok) {
-        sent = (unsigned int) sim->write((const char *)buf, len);
+        sent = (unsigned int) sim->write((const char *) buf, len);
         at = sim->waitUntilReceive("SEND OK", GPRS_SIM900_SEND_TIMEOUT);
     }
     return at >= 0 ? sent : 0;
@@ -131,7 +166,7 @@ unsigned char GprsSIM900::close(char connection) {
         sim->write(',');
         sim->write('0' + connection);
     }
-    sim->println();
+    sim->sendCommand();
     at = sim->waitUntilReceive("CLOSE OK", GPRS_SIM900_CIPSTART_TIMEOUT);
     if (at >= 0) {
         return GprsSIM900::OK;
@@ -143,6 +178,7 @@ unsigned char GprsSIM900::close() {
     return close(-1);
 }
 
+// TODO
 unsigned char GprsSIM900::resolve(const char *name, unsigned char ip[4]) {
     bool ok;
     int at;
@@ -164,13 +200,39 @@ unsigned char GprsSIM900::resolve(const char *name, unsigned char ip[4]) {
 }
 
 unsigned char GprsSIM900::configureServer(unsigned char mode, unsigned int port) {
+    mode &= 0x01;
     sim->write("AT+CIPSERVER=");
-    sim->write(name);
-
+    sim->print(mode, DEC);
+    sim->write(',');
+    sim->print(mode, DEC);
+    return sim->sendCommandExpecting("", "OK") ? GprsSIM900::OK : GprsSIM900::ERROR;
 }
 
 unsigned char GprsSIM900::shutdown() {
     return sim->sendCommandExpecting("AT+CIPSHUT", "SHUT OK") ? GprsSIM900::OK : GprsSIM900::ERROR;
+}
+
+void GprsSIM900::transmittingState(void *stateStruct) {
+    transmittingState(-1, stateStruct);
+}
+
+void GprsSIM900::transmittingState(unsigned char connection, void *stateStruct) {
+    int at;
+    TransmittingState *state = (TransmittingState *) stateStruct;
+    sim->write("AT+CIPACK=");
+    if (connection != (char) -1) {
+        sim->write(',');
+        sim->write('0' + connection);
+    }
+    sim->sendCommand();
+    at = sim->waitUntilReceive("+CIPACK", GPRS_SIM900_CIPACK_TIMEOUT);
+    if (at >= 0) {
+        unsigned char *pos = sim->getLastResponse();
+        // > +CIPACK: 2,2,0
+        sscanf((const char *) (pos + at), "+CIPACK: %d,%d,%d", &state->txlen, &state->acklen, &state->nacklen);
+    } else {
+        state->txlen = state->acklen = state->nacklen = 0;
+    }
 }
 
 unsigned char GprsSIM900::parseIp(const char *buf, unsigned char ip[4]) {

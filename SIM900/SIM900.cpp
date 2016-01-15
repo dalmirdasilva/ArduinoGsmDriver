@@ -67,6 +67,7 @@ bool SIM900::doesResponseContains(const char *expectation) {
 }
 
 unsigned int SIM900::sendCommand(const char *command, bool append, unsigned long timeout) {
+    rxBufferPos = 0;
     rxBuffer[0] = '\0';
     if (append) {
         print("AT");

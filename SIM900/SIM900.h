@@ -205,8 +205,6 @@ public:
     /**
      * Sends a command to the device.
      * 
-     * DEFAULT TIMEOUT
-     * 
      * @param command           The command string, should be \0 ended.
      * @param append            Boolean saying if the AT must be appended.
      * @return 
@@ -217,8 +215,6 @@ public:
 
     /**
      * Sends a command to the device.
-     * 
-     * DEFAULT APPEND
      * 
      * @param command           The command string, should be \0 ended.
      * @param append            Boolean saying if the AT must be appended.
@@ -231,14 +227,18 @@ public:
     /**
      * Sends a command to the device.
      * 
-     * DEFAULT TIMEOUT
-     * DEFAULT APPEND
-     * 
      * @param command           The command string, should be \0 ended.
      * @return 
      */
     inline unsigned int sendCommand(const char *command) {
         return sendCommand(command, (bool) false);
+    }
+
+    /**
+     * Sends a command to the device.
+     */
+    inline unsigned int sendCommand() {
+        return sendCommand("");
     }
 
     /**

@@ -65,6 +65,14 @@ public:
     virtual unsigned char status() = 0;
 
     /**
+     * Query Current Connection Status
+     *
+     * @param   connection          In muiti connection, it refears to the connection number.
+     * @return
+     */
+    virtual unsigned char status(unsigned char connection) = 0;
+
+    /**
      * Configure Domain Name Server
      * 
      * @return 
@@ -134,6 +142,13 @@ public:
      * @return 
      */
     virtual unsigned char shutdown() = 0;
+
+    /**
+     * Query Previous Connection Data Transmitting State
+     *
+     * @param   stateStruct         Pointer to the state struct.
+     */
+    virtual void transmittingState(unsigned char connection, void *stateStruct) = 0;
 };
 
 #endif /* __ARDUINO_DRIVER_GSM_GPRS_H__ */
