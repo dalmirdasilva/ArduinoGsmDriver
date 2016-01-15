@@ -1,0 +1,25 @@
+AT	 OK	test command. reply is OK
+AT+CGATT?	 +CGATT:n	checks if GPRS is attached? n=1 if attached
+AT+CIPMUX=n	 OK	use n as 0 for single connection
+or use 1 for multiple connections
+AT+CSTT=”apn”,”username”,”pass”	OK	Sets APN, user name and password
+AT+CIICR	 OK	Brings up wireless connection
+AT+CIFSR	 ip address	Get local IP address if connected
+AT+CIPSTART=“TYPE” , “domain”, “port”	 Connected	Establishes a connection with a server. Type can be UDP or TCP
+AT+CIPSEND	 >	Sends data when the a connection is established.
+AT+CIPCLOSE	 OK	Closes the connection
+AT+CDNSGIP="www.asdasdasdasdw333.com"
+
+
+AT+CIPSTART="TCP","54.86.161.62", "80"
+AT+CIPSEND=2
+
+GET / HTTP/1.1 
+Host: www.dalmirdasilva.com
+
+AT+HTTPREAD=1,22
+
+AT+CIPRXGET
+
+AT+CIPCLOSE=1
+opasopa

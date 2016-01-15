@@ -53,6 +53,11 @@ class SIM900: public SoftwareSerial {
      */
     bool responseFullyRead;
 
+    /**
+     * Enable soft power and reset
+     */
+    bool softResetAndPowerEnabled;
+
 public:
 
     enum DisconnectParamter {
@@ -92,6 +97,13 @@ public:
     /**
      * Public constructor.
      * 
+     * @param serial
+     */
+    SIM900(unsigned char receivePin, unsigned char transmitPin);
+
+    /**
+     * Public constructor.
+     *
      * @param serial
      */
     SIM900(unsigned char receivePin, unsigned char transmitPin, unsigned char resetPin, unsigned char powerPin);
@@ -141,10 +153,9 @@ public:
     /**
      * Sends a command expecting some result.
      * 
-     * DEFAULT TIMEOUT
-     * 
-     * @param command           The command string, should be \0 ended.
-     * @param expectation       The expectation string.
+     * @param   command             The command string, should be \0 ended.
+     * @param   expectation         The expectation string.
+     * @param   append              If should append AT+ in the command.
      * @return 
      */
     inline bool sendCommandExpecting(const char *command, const char *expectation, bool append) {
@@ -154,10 +165,9 @@ public:
     /**
      * Sends a command expecting some result.
      * 
-     * DEFAULT APPEND
-     * 
-     * @param command           The command string, should be \0 ended.
-     * @param expectation       The expectation string.
+     * @param   command             The command string, should be \0 ended.
+     * @param   expectation         The expectation string.
+     * @param   timeout             Timeout.
      * @return 
      */
     inline bool sendCommandExpecting(const char *command, const char *expectation, unsigned long timeout) {
@@ -166,9 +176,6 @@ public:
 
     /**
      * Sends a command expecting some result.
-     * 
-     * DEFAULT TIMEOUT
-     * DEFAULT APPEND
      * 
      * @param command           The command string, should be \0 ended.
      * @param expectation       The expectation string.

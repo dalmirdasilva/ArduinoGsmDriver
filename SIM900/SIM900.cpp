@@ -14,12 +14,17 @@
 #include <Arduino.h>
 #include "SIM900.h"
 
+SIM900::SIM900(unsigned char receivePin, unsigned char transmitPin)
+        : SIM900(receivePin, transmitPin, 0, 0) {
+}
+
 SIM900::SIM900(unsigned char receivePin, unsigned char transmitPin, unsigned char resetPin, unsigned char powerPin)
         : SoftwareSerial(receivePin, transmitPin), rxBufferPos(0), echo(true), resetPin(resetPin), powerPin(powerPin), responseFullyRead(
         true) {
     rxBuffer[0] = '\0';
     pinMode(resetPin, OUTPUT);
     pinMode(powerPin, OUTPUT);
+    softResetAndPowerEnabled = !(resetPin == 00 && powerPin == 0);
 }
 
 SIM900::~SIM900() {
@@ -35,15 +40,19 @@ unsigned char SIM900::begin(long bound) {
 }
 
 void SIM900::softReset() {
-    digitalWrite(resetPin, HIGH);
-    delay(100);
-    digitalWrite(resetPin, LOW);
+    if (softResetAndPowerEnabled) {
+        digitalWrite(resetPin, HIGH);
+        delay(100);
+        digitalWrite(resetPin, LOW);
+    }
 }
 
 void SIM900::softPower() {
-    digitalWrite(powerPin, HIGH);
-    delay(1000);
-    digitalWrite(powerPin, LOW);
+    if (softResetAndPowerEnabled) {
+        digitalWrite(powerPin, HIGH);
+        delay(1000);
+        digitalWrite(powerPin, LOW);
+    }
 }
 
 bool SIM900::sendCommandExpecting(const char *command, const char *expectation, bool append, unsigned long timeout) {
