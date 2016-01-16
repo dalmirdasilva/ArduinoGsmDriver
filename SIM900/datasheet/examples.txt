@@ -26,10 +26,3 @@ AT+CIPSHUT
 
 AT+CIPCLOSE=1
 opasopa
-
-
-
-
-
-If 
-

@@ -69,6 +69,7 @@ bool SIM900::doesResponseContains(const char *expectation) {
 unsigned int SIM900::sendCommand(const char *command, bool append, unsigned long timeout) {
     rxBufferPos = 0;
     rxBuffer[0] = '\0';
+    flush();
     if (append) {
         print("AT");
     }
@@ -90,26 +91,23 @@ unsigned int SIM900::readResponse(unsigned long timeout, bool append) {
     responseFullyRead = true;
     do {
         availableBytes = available();
-        delay(10);
         if (availableBytes > 0) {
             if (rxBufferPos + availableBytes >= SIM900_RX_BUFFER_SIZE) {
                 availableBytes = SIM900_RX_BUFFER_SIZE - (rxBufferPos + 1);
                 responseFullyRead = false;
             }
-            if (availableBytes == 0) {
-                flush();
-            } else {
+            if (availableBytes > 0) {
                 // we have the guaranty that is not going to be too big because it is constrained by the buffer size.
                 unsigned int howMany = readBytes((char *) &rxBuffer[rxBufferPos], availableBytes);
                 rxBufferPos += howMany;
-                rxBuffer[rxBufferPos] = 0;
+                rxBuffer[rxBufferPos] = '\0';
             }
         }
-    } while ((millis() - start) < timeout && availableBytes > 0);
+    } while (availableBytes > 0 && (millis() - start) < timeout);
     return rxBufferPos - currentRxBufferPos;
 }
 
-void SIM900::setCommandEcho(bool echo) {
+void SIM900::setEcho(bool echo) {
     this->echo = echo;
     char command[] = "E0";
     if (echo) {
@@ -128,16 +126,15 @@ bool SIM900::wasResponseFullyRead() {
 }
 
 const char *SIM900::findInResponse(const char *str) {
-    const char *response = (const char *) &rxBuffer[0];
-    return (const char *) strstr(response, str);
+    return strstr((const char *) &rxBuffer[0], str);
 }
 
 int SIM900::waitUntilReceive(const char *str, unsigned int timeout) {
-    const char *at;
-    while ((at = findInResponse(str)) == NULL && readResponse(timeout, responseFullyRead) > 0)
+    const char *pos;
+    while ((pos = findInResponse(str)) == NULL && readResponse(timeout, responseFullyRead) > 0)
         ;
-    if (at != NULL) {
-        return (int) (at - (const char *) &rxBuffer[0]);
+    if (pos != NULL) {
+        return (int) (pos - (const char *) &rxBuffer[0]);
     }
     return -1;
 }

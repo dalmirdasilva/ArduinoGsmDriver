@@ -352,7 +352,9 @@ public:
     /**
      * Query Previous Connection Data Transmitting State
      */
-    virtual void transmittingState(void *stateStruct);
+    inline void transmittingState(void *stateStruct) {
+        transmittingState(-1, stateStruct);
+    }
 
     /**
      * Query Previous Connection Data Transmitting State
@@ -375,7 +377,7 @@ public:
      *
      * @param   stateStruct         Pointer to the TransmittingState structure.
      */
-    virtual void transmittingState(unsigned char connection, void *stateStruct);
+    void transmittingState(unsigned char connection, void *stateStruct);
 
     /**
      * Tries to parse an IP from string.

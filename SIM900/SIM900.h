@@ -265,7 +265,7 @@ public:
      * 
      * @param echo
      */
-    void setCommandEcho(bool echo);
+    void setEcho(bool echo);
 
     unsigned char disconnect(DisconnectParamter param);
 

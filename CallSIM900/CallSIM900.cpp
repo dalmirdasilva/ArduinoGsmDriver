@@ -47,22 +47,23 @@ unsigned char CallSIM900::disconnect() {
 }
 
 unsigned char CallSIM900::checkResponse() {
+    CallResponse response = OK;
     if (sim->doesResponseContains((const char *) "OK")) {
-        return OK;
+        response = OK;
     } else if (sim->doesResponseContains((const char *) "CME")) {
-        return CME_ERROR;
+        response = CME_ERROR;
     } else if (sim->doesResponseContains((const char *) "DIALTONE")) {
-        return NO_DIALTONE;
+        response = NO_DIALTONE;
     } else if (sim->doesResponseContains((const char *) "BUSY")) {
-        return BUSY;
+        response = BUSY;
     } else if (sim->doesResponseContains((const char *) "CARRIER")) {
-        return NO_CARRIER;
+        response = NO_CARRIER;
     } else if (sim->doesResponseContains((const char *) "ANSWER")) {
-        return NO_ANSWER;
+        response = NO_ANSWER;
     } else if (sim->doesResponseContains((const char *) "CONNECT")) {
-        return CONNECT_TEXT;
+        response = CONNECT_TEXT;
     }
-    return OK;
+    return response;
 }
 
 #endif /* __ARDUINO_DRIVER_GSM_CALL_SIM900_CPP__ */
