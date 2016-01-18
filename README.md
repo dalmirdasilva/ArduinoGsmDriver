@@ -2,6 +2,17 @@
 
 [Documentation.pdf](Documentation.pdf)
 
+## Instalation
+
+NOTE: Instalation will only make sym links from your cloned path to ~/Arduino/libraries folder.
+
+```bash
+$ git clone https://github.com/dalmirdasilva/ArduinoGsmDriver
+$ make install
+```
+
+
+## Example of code for sending data through GPRS wireless network.
 
 ```cpp
 
@@ -128,3 +139,4 @@
     }
 
 ```
+
