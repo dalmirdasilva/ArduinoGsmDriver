@@ -1,4 +1,4 @@
-ARDUINO_LIB_PATH=/usr/share/arduino/libraries
+ARDUINO_LIB_PATH=~/Arduino/libraries
 LIB_LIST=SIM900 Sms SmsSIM900 Gprs GprsSIM900 Call CallSIM900
 SOURCE_PATH=`pwd`
 

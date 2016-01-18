@@ -23,12 +23,12 @@
 #define __ARDUINO_DRIVER_GSM_GPRS_SIM900_H__ 1
 
 #define GPRS_SIM900_MAX_COMMAND_LENGHT  64
-#define GPRS_SIM900_CDNSGIP_TIMEOUT     5000
-#define GPRS_SIM900_CIICR_TIMEOUT       10000
-#define GPRS_SIM900_CIPSTART_TIMEOUT    5000
-#define GPRS_SIM900_SEND_TIMEOUT        10000
-#define GPRS_SIM900_CIPSTATUS_TIMEOUT   5000
-#define GPRS_SIM900_CIPACK_TIMEOUT      5000
+#define GPRS_SIM900_CDNSGIP_TIMEOUT     5000UL
+#define GPRS_SIM900_CIICR_TIMEOUT       10000UL
+#define GPRS_SIM900_CIPSTART_TIMEOUT    5000UL
+#define GPRS_SIM900_SEND_TIMEOUT        10000UL
+#define GPRS_SIM900_CIPSTATUS_TIMEOUT   5000UL
+#define GPRS_SIM900_CIPACK_TIMEOUT      5000UL
 
 #include <Gprs.h>
 #include <SIM900.h>
@@ -100,10 +100,6 @@ public:
     /**
      * Initializes the device.
      * 
-     * Example:
-     * > AT+CIPSHUT
-     * < SHUT OK
-     *
      * @param           The bound rate to be used.
      * @return          > 0 if success, 0 otherwise.
      */
@@ -220,10 +216,14 @@ public:
      *
      * Example:
      * > AT+CIPSTATUS[=n]
+     * < OK
+     * <
+     * < STATE: IP STATUS
+     *
      *
      * @return 
      */
-    unsigned char status(unsigned char connection);
+    unsigned char status(char connection);
 
     /**
      * Status
@@ -242,7 +242,9 @@ public:
      * 
      * @return 
      */
-    unsigned char open(const char *mode, const char *address, unsigned int port);
+    inline unsigned char open(const char *mode, const char *address, unsigned int port) {
+        return open(-1, mode, address, port);
+    }
 
     /**
      * Start Up TCP or UDP Connection
@@ -277,7 +279,9 @@ public:
      *
      * @return
      */
-    unsigned int send(unsigned char *buf, unsigned int len);
+    inline unsigned int send(unsigned char *buf, unsigned int len) {
+        return send(-1, buf, len);
+    }
 
     /**
      * Send Data Through TCP or UDP Connection
@@ -352,8 +356,8 @@ public:
     /**
      * Query Previous Connection Data Transmitting State
      */
-    inline void transmittingState(void *stateStruct) {
-        transmittingState(-1, stateStruct);
+    inline unsigned char transmittingState(void *stateStruct) {
+        return transmittingState(-1, stateStruct);
     }
 
     /**
@@ -377,7 +381,7 @@ public:
      *
      * @param   stateStruct         Pointer to the TransmittingState structure.
      */
-    void transmittingState(unsigned char connection, void *stateStruct);
+    unsigned char transmittingState(char connection, void *stateStruct);
 
     /**
      * Tries to parse an IP from string.

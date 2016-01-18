@@ -67,10 +67,10 @@ public:
     /**
      * Query Current Connection Status
      *
-     * @param   connection          In muiti connection, it refears to the connection number.
+     * @param   connection          In muiti connection, it refears to the connection number. -1 otherwise;
      * @return
      */
-    virtual unsigned char status(unsigned char connection) = 0;
+    virtual unsigned char status(char connection) = 0;
 
     /**
      * Configure Domain Name Server
@@ -148,7 +148,15 @@ public:
      *
      * @param   stateStruct         Pointer to the state struct.
      */
-    virtual void transmittingState(unsigned char connection, void *stateStruct) = 0;
+    virtual unsigned char transmittingState(void *stateStruct) = 0;
+
+    /**
+     * Query Previous Connection Data Transmitting State
+     *
+     * @param   connection          In muiti connection, it refears to the connection number. -1 otherwise.
+     * @param   stateStruct         Pointer to the state struct.
+     */
+    virtual unsigned char transmittingState(char connection, void *stateStruct) = 0;
 };
 
 #endif /* __ARDUINO_DRIVER_GSM_GPRS_H__ */

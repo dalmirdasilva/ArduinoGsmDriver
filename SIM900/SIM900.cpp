@@ -32,7 +32,7 @@ SIM900::~SIM900() {
 
 unsigned char SIM900::begin(long bound) {
     SoftwareSerial::begin(bound);
-    if (sendCommandExpecting("AT", "OK", 100UL)) {
+    if (sendCommandExpecting("AT", "OK")) {
         return 1;
     }
     softPower();
@@ -79,16 +79,17 @@ unsigned int SIM900::sendCommand(const char *command, bool append, unsigned long
 
 unsigned int SIM900::readResponse(unsigned long timeout, bool append) {
     int availableBytes;
-    unsigned long currentRxBufferPos;
-    unsigned long start = millis();
+    unsigned long pos, last, now, start;
+    unsigned int read;
+    last = start = millis();
     if (!append) {
         rxBufferPos = 0;
     }
-    currentRxBufferPos = rxBufferPos;
-    while (!available() && (millis() - start) < timeout)
+    pos = rxBufferPos;
+    responseFullyRead = true;
+    while (available() <= 0 && (millis() - start) < timeout)
         ;
     start = millis();
-    responseFullyRead = true;
     do {
         availableBytes = available();
         if (availableBytes > 0) {
@@ -97,14 +98,16 @@ unsigned int SIM900::readResponse(unsigned long timeout, bool append) {
                 responseFullyRead = false;
             }
             if (availableBytes > 0) {
+                last = millis();
                 // we have the guaranty that is not going to be too big because it is constrained by the buffer size.
-                unsigned int howMany = readBytes((char *) &rxBuffer[rxBufferPos], availableBytes);
-                rxBufferPos += howMany;
+                read = readBytes((char *) &rxBuffer[rxBufferPos], availableBytes);
+                rxBufferPos += read;
                 rxBuffer[rxBufferPos] = '\0';
             }
         }
-    } while (availableBytes > 0 && (millis() - start) < timeout);
-    return rxBufferPos - currentRxBufferPos;
+        now = millis();
+    } while ((availableBytes > 0 || (now - last) < SIM900_SERIAL_INTERBYTE_TIMEOUT) && (now - start) < timeout && responseFullyRead);
+    return rxBufferPos - pos;
 }
 
 void SIM900::setEcho(bool echo) {
