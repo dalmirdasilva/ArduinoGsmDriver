@@ -357,7 +357,7 @@ public:
      * Query Previous Connection Data Transmitting State
      */
     inline unsigned char transmittingState(void *stateStruct) {
-        return transmittingState(-1, stateStruct);
+        return getTransmittingState(-1, stateStruct);
     }
 
     /**
@@ -381,7 +381,7 @@ public:
      *
      * @param   stateStruct         Pointer to the TransmittingState structure.
      */
-    unsigned char transmittingState(char connection, void *stateStruct);
+    unsigned char getTransmittingState(char connection, void *stateStruct);
 
     /**
      * Tries to parse an IP from string.

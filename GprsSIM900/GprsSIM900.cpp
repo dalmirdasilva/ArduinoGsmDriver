@@ -213,7 +213,7 @@ unsigned char GprsSIM900::shutdown() {
     return sim->sendCommandExpecting("AT+CIPSHUT", "SHUT OK") ? GprsSIM900::OK : GprsSIM900::ERROR;
 }
 
-unsigned char GprsSIM900::transmittingState(char connection, void *stateStruct) {
+unsigned char GprsSIM900::getTransmittingState(char connection, void *stateStruct) {
     int pos;
     unsigned char *response;
     TransmittingState *state = (TransmittingState *) stateStruct;

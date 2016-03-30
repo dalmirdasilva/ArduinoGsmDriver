@@ -156,7 +156,7 @@ public:
      * @param   connection          In muiti connection, it refears to the connection number. -1 otherwise.
      * @param   stateStruct         Pointer to the state struct.
      */
-    virtual unsigned char transmittingState(char connection, void *stateStruct) = 0;
+    virtual unsigned char getTransmittingState(char connection, void *stateStruct) = 0;
 };
 
 #endif /* __ARDUINO_DRIVER_GSM_GPRS_H__ */
