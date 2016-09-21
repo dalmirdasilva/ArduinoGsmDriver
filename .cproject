@@ -42,6 +42,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/SIM900}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Sms}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/SmsSIM900}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoAttentionDevice/AttentionDevice}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoAttentionDevice/SoftwareSerialAttentionDevice}&quot;"/>
 								</option>
 								<inputType id="de.innot.avreclipse.cppcompiler.input.740825442" superClass="de.innot.avreclipse.cppcompiler.input"/>
 							</tool>
